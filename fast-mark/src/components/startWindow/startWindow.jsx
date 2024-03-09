@@ -14,11 +14,17 @@ export default function StartWindow({setImageURL, setWindowType}) {
 
     return (
         <>
-            <Container
-                sx={{
-                    mt: "2rem"
-                }}
-            >
+            <Container sx={{ mt: "5rem"}}>
+                    <div>
+                    <Typography
+                        variant="h2"
+                        component="span"
+                        sx={{ flexGrow: 1 }}
+                    >
+                    Fast Mark
+                    </Typography>
+                    </div>
+                    
                     <div>
                     <Typography
                         variant="h4"
@@ -37,7 +43,6 @@ export default function StartWindow({setImageURL, setWindowType}) {
                             <h2 className="start-window__warning-title">{userWarning}</h2>
                         </div>
                     </div>
-                    
             </Container>
         </>
     )
