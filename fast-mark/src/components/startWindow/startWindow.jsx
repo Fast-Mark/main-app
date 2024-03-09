@@ -15,9 +15,6 @@ export default function StartWindow({setImageURL, setWindowType}) {
         <>
             <div className="start-window">
                 <div className="strart-window__description">
-                    <h2 className="start-window__user-greeting">
-                        FastMark - генератор грамот
-                    </h2>
                     <p className="start-window__description-text">
                         Вас приветствует автоматизатор для создания грамот. 
                         Я умею автоматически заполнять большое количество документов, 
