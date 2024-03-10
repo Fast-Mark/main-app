@@ -30,23 +30,22 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
         }
     } 
 
-    console.log(parametrs)
     if (type === textBlockType) {
         return(
-            <ul className="drop-block" style={blockPosition}>
-                <li><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </li>
-                <li><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></li>
-                <li> <ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </li>
-                <li><ToggleButtons setElementPosition={updateAligment} startPosition={chooseAligment}></ToggleButtons></li>
-                <li>text color: </li>
-            </ul>
+            <div className="drop-block" style={blockPosition}>
+                <div><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
+                <div><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></div>
+                <div> <ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
+                <div><ToggleButtons setElementPosition={updateAligment} startPosition={chooseAligment}></ToggleButtons></div>
+                <div>text color: </div>
+            </div>
         )
     } else if (type === imageBlockType) {
         return (
-            <ul className="drop-block" style={blockPosition}>
-                <li><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </li>
-                <li><TransformImage updateContentParams={updateContentParams}></TransformImage></li>
-            </ul>
+            <div className="drop-block" style={blockPosition}>
+                <div><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
+                <div><TransformImage updateContentParams={updateContentParams}></TransformImage></div>
+            </div>
         )
     }
 }

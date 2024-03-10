@@ -17,7 +17,7 @@ export default function ChooseFontSize({startSize, updateContentParams}) {
         <FormControl>
             <InputLabel>font size</InputLabel>
             <Select
-            value={currentSize}
+            value={""}
             label={currentSize}
             onChange={(event) => {handleChange(event)}}
             inputProps={{'aria-label': 'Without label'}}

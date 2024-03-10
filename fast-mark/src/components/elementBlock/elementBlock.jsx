@@ -4,14 +4,25 @@ import { useState, useRef  } from "react";
 import ResizePoint from "../choosenElementMask/resizePoint";
 import DropBlock from "../dropBlock/dropBlock";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 
-export default function ElementBlock({element, updateElement, onDragging, isActiveDropList, setDropListActive, onSelect, setElementToUp, setElementToDown}) {
+export default function ElementBlock({element, zIndexElement, updateElement, onDragging, isActiveDropList, setDropListActive, onSelect, setElementToUp, setElementToDown, setDropBlock}) {
     const dropListPositionRef = useRef({left:0,top:0})
 
     function onSelectElement() {
         onSelect(element.id)
+        setDropBlock(
+            <DropBlock 
+                updateBlockParams={updateBlockParams}
+                onUp={elementToUp}
+                onDown={elementToDown}
+                updateContentParams={updateContentParams}
+                parametrs={ {...element.contentStyles}}
+                type={element.type}>
+            </DropBlock>
+        )
     }
     
     function updateContentParams(param) {
@@ -40,6 +51,7 @@ export default function ElementBlock({element, updateElement, onDragging, isActi
         const y = event.clientY
         dropListPositionRef.current = {left: `${x}px`, top: `${y}px`}
         setDropListActive(true)
+        
     }
 
     function elementToUp() {
@@ -54,13 +66,15 @@ export default function ElementBlock({element, updateElement, onDragging, isActi
         newElement.content = newText
         updateElement(element.id, newElement)
     }
-// TODO: исправить zIndex`ы
-// TODO: добавить примитивы: блоки, треугольникик, круги, логотип вузов и т.д.
+
     if (element.isSelected) {
         return (
-            <div className={"element-block box"}  id = {element.id} style={element.blockStyle}
+            <div className={"element-block box"}  id = {element.id} 
+            style={{...element.blockStyle, "z-index":`${zIndexElement}`}}
             onContextMenu={(event) => {handleRightClick(event)}}
-            onMouseDown={(event) => {onDragging(element.id, event)}} >
+            onMouseDown={(event) => {onDragging(element.id, event)}} 
+            key={element.id}
+            >
             {isActiveDropList ? <DropBlock 
                 updateBlockParams={updateBlockParams}
                 onUp={elementToUp}
@@ -83,9 +97,13 @@ export default function ElementBlock({element, updateElement, onDragging, isActi
         )} 
     else {
         return (
-        <div className="element-block" id = {element.id} style={element.blockStyle} >
+        <div key={element.id} className="element-block" id = {element.id} style={element.blockStyle} >
 
-            <div className="box " onMouseDown={onSelectElement} style={element.contentStyles}>
+            <div className="box " 
+            onMouseDown={onSelectElement} 
+            style={{...element.contentStyles, "z-index":`${zIndexElement}`}}             
+            
+            >
                     {element.content}
             </div>
 

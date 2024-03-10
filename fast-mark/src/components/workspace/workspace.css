@@ -1,7 +1,9 @@
 #workspace {
     display: grid;
-    grid-template-columns: 55px auto 200px ;
+    grid-template-columns: 10% 70% 20%;
+    grid-template-rows: auto;
     justify-content: center;
+    user-select: none;
 }
 .redactor__wrapper {
     margin: auto auto;
@@ -10,11 +12,14 @@
     position: relative;
 }
 .workspace-redactor__background-image {
-    position: absolute;
+    /* position: absolute; */
+    grid-column: 2;
 }
 #redactor {
     display: flex;
     flex-direction: row;
     justify-content: center;
-
+    width: 100%;
+    height: 100vh;
+    overflow-x: scroll;
 }
