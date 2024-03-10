@@ -5,10 +5,11 @@ import { resizePointClassName, textBlockType } from '../../const/classNameConst'
 import './workspace.css'
 import { centerPosition } from '../../const/positionTypes';
 import WorkspaceDropBlock from '../dropBlock/workspaceUtils/workspaceDropBlock';
+import InstrumentsTable from './instrumentsTable';
 
 // Используется так же в ElementList
 let initialElements = [
-    { id: '1', content: 'Element 1', type: textBlockType, blockStyle: {left: 0, top: 0, zIndex: 1, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px'}, },
+    { id: '1', content: 'Element 1', type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px'}, },
 ];
 
 const dragClickType = "drag"
@@ -18,7 +19,7 @@ export default function Workspace({backgroundURL}) {
     const [elements, updateElements] = useState(initialElements);
     const [isDropListActive, setDropListActive] = useState(false)
     const [contextMenu, setContextMenu] = useState(null)
-    const [instrumentsTable, setInstrumentsTable] = useState()
+    const [utils, setUtils] = useState()
 
     // КУЧА ДЕРЬМА
     let elementCoord = {startX: 0, startY: 0, lastX: 0, lastY: 0,}
@@ -81,7 +82,6 @@ export default function Workspace({backgroundURL}) {
             
             const newElements = elements.map((obj) => {
                 if (obj.id === selectedElement) {
-                    console.log(elementCoord)
                     let width = `${ Number(elementCoord.lastX) + Number(event.clientX) - Number(elementCoord.startX) }px`;
                     let height = `${ Number(elementCoord.lastY) + Number(event.clientY) - Number(elementCoord.startY) }px`;
                     const newBlockStyle = {...obj.blockStyle, width: width, height: height}
@@ -151,29 +151,35 @@ export default function Workspace({backgroundURL}) {
             onSelectElement("redactor")
             selectedElement = null;
             setDropListActive(false);
-            setContextMenu(null)
+            setUtils(null)
         } 
         
         const localClassName = String(event.target.className);
         if (localClassName.includes("box") || localClassName.includes("element-block") || String(event.target.className) === "box") {
             setDropListActive(false);
         }
+
+        if (!localClassName.includes("workspace__context-menu")) {
+            setContextMenu(null)
+        }
     }
-// TODO
+
     function onRedactorContextMenu(event) {
         event.preventDefault()
-        // console.log(JSON.stringify(initialElements))
 
+        if (event.target.className.includes("box") || event.target.className.includes("element-block")) {
+            setContextMenu(null)
+            return
+        }
 
         const position = {left: event.clientX, top: event.clientY}
         setContextMenu(<WorkspaceDropBlock 
             position={position}  
             elements={elements}
             updateElements={updateElements}
+            className="workspace__context-menu"
             ></WorkspaceDropBlock>
         )
-        // setContextMenu()
-        console.log("!!!")
     }
 
 // TODO: какого ххх перестало работать
@@ -186,12 +192,18 @@ export default function Workspace({backgroundURL}) {
             }});
 
         newElements.push(lastElement)
-        console.log(newElements)
         updateElements(newElements)
     }
 
     function setElementToDown(id) {
-        console.log({...elements})
+        // console.log({...elements})
+    }
+
+    function addNewElement(newElement) {
+        let newItems = Array.from(elements);
+        newItems.push(newElement)
+        
+        updateElements(newItems)
     }
 
     return (
@@ -200,15 +212,14 @@ export default function Workspace({backgroundURL}) {
             
             <div id = "toolbar">
                 {/* здесь будут все полезные инструменты */}
-
+                <InstrumentsTable elementsCount={elements.length} elementUtils={utils} setNewElement={addNewElement}></InstrumentsTable>
             </div>
 
             {/* Здесь у нас рендерятся все */}
             <div id ='redactor'
              onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
              onContextMenu={(event) => {onRedactorContextMenu(event)}}
-             style={{overflow: 'auto', position:"absolute", height: '100%', width: '100%', }}
-             >                
+            >                
             <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'/>
                 <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
                 {elements.map((element, index) => {
@@ -216,6 +227,7 @@ export default function Workspace({backgroundURL}) {
                         return (
                             <ElementBlock 
                                 element={element}
+                                zIndexElement={index}
                                 setElementToUp={setElementToUp}
                                 setElementToDown={setElementToDown}
                                 updateElement={onUpdateOneElement}
@@ -223,6 +235,7 @@ export default function Workspace({backgroundURL}) {
                                 onDragging={onMouseDown} 
                                 setDropListActive={setDropListActive}
                                 isActiveDropList={isDropListActive} 
+                                setDropBlock={setUtils}
                             >
 
                             </ElementBlock>
@@ -232,12 +245,12 @@ export default function Workspace({backgroundURL}) {
                     }
                 })}   
 
-                {contextMenu}
                 </div>
+                {contextMenu}
             </div>
             
 
-            <div style={{background:'aqua', width: '200px', position:'absolute', right:'0'}}>
+            <div style={{background:'aqua', position:'absolute', right:'0'}}>
                 <ElementsList elements = {elements} updateElements={onUpdateElements} />
             </div>
             
