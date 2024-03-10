@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Workspace from './components/workspace/workspace'
 import StartWindow from './components/startWindow/startWindow';
@@ -10,14 +9,15 @@ const App = () => {
 
   if (currentWindowType === StartWindowType) {
     return (
+        <>
         <StartWindow setWindowType={setWindowType} setImageURL={setDocURL}></StartWindow>
+        </>
     );
   } else if (currentWindowType === WorkWindowType) {
     return (
-      <div>
-        
+      <>
         <Workspace backgroundURL={docURL}></Workspace>
-      </div>
+      </>
     );
   } else if (currentWindowType === ResultWindowType) {
     return (
