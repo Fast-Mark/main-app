@@ -6,6 +6,7 @@ import './workspace.css'
 import { centerPosition } from '../../const/positionTypes';
 import WorkspaceDropBlock from '../dropBlock/workspaceUtils/workspaceDropBlock';
 import InstrumentsTable from './instrumentsTable';
+import {Container, Grid} from '@mui/material'
 
 // Используется так же в ElementList
 let initialElements = [
@@ -207,54 +208,64 @@ export default function Workspace({backgroundURL}) {
     }
 
     return (
-        <div id='workspace'
-         >
-            
-            <div id = "toolbar">
-                {/* здесь будут все полезные инструменты */}
-                <InstrumentsTable elementsCount={elements.length} elementUtils={utils} setNewElement={addNewElement}></InstrumentsTable>
-            </div>
-
-            {/* Здесь у нас рендерятся все */}
-            <div id ='redactor'
-             onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
-             onContextMenu={(event) => {onRedactorContextMenu(event)}}
-            >                
-            <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'/>
-                <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
-                {elements.map((element, index) => {
-                    try {
-                        return (
-                            <ElementBlock 
-                                element={element}
-                                zIndexElement={index}
-                                setElementToUp={setElementToUp}
-                                setElementToDown={setElementToDown}
-                                updateElement={onUpdateOneElement}
-                                onSelect={onSelectElement} 
-                                onDragging={onMouseDown} 
-                                setDropListActive={setDropListActive}
-                                isActiveDropList={isDropListActive} 
-                                setDropBlock={setUtils}
-                            >
-
-                            </ElementBlock>
-                        )
-                    } catch (e) {
-                        
-                    }
-                })}   
-
+        
+            <Grid 
+                container 
+                spacing={2}
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+            >
+            <Grid item xs>
+                <div id = "toolbar">
+                    {/* здесь будут все полезные инструменты */}
+                    <InstrumentsTable elementsCount={elements.length} elementUtils={utils} setNewElement={addNewElement}></InstrumentsTable>
                 </div>
-                {contextMenu}
-            </div>
-            
+            </Grid>
 
-            <div style={{background:'aqua', position:'absolute', right:'0'}}>
-                <ElementsList elements = {elements} updateElements={onUpdateElements} />
-            </div>
-            
+            <Grid item xs>
+                {/* Здесь у нас рендерятся все */}
+                <div id ='redactor'
+                 onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
+                 onContextMenu={(event) => {onRedactorContextMenu(event)}}
+                >                
+                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'/>
+                    <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
+                    {elements.map((element, index) => {
+                        try {
+                            return (
+                                <ElementBlock 
+                                    element={element}
+                                    zIndexElement={index}
+                                    setElementToUp={setElementToUp}
+                                    setElementToDown={setElementToDown}
+                                    updateElement={onUpdateOneElement}
+                                    onSelect={onSelectElement} 
+                                    onDragging={onMouseDown} 
+                                    setDropListActive={setDropListActive}
+                                    isActiveDropList={isDropListActive} 
+                                    setDropBlock={setUtils}
+                                >
 
-        </div>
+                                </ElementBlock>
+                            )
+                        } catch (e) {
+
+                        }
+                    })}   
+
+                    </div>
+                    {contextMenu}
+                </div>
+            </Grid>
+
+            <Grid item xs>
+                <div >
+                    <ElementsList elements = {elements} updateElements={onUpdateElements} />
+                </div>
+            </Grid>
+
+            </Grid>
+        
     )
 }

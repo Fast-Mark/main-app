@@ -19,7 +19,7 @@ const theme = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-
-    <App />
-
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
 )
