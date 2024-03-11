@@ -185,19 +185,28 @@ export default function Workspace({backgroundURL}) {
 
 // TODO: какого ххх перестало работать
     function setElementToUp(id) {
-        const lastElement = elements.find((obj) => obj.id === id)
+        const lastLayoutElement = elements.find((obj) => obj.id === id)
         let newElements = new Array();
         elements.map((obj) =>{
             if (obj.id !== id) {
                 newElements.push(obj)
             }});
 
-        newElements.push(lastElement)
+        newElements.push(lastLayoutElement)
         updateElements(newElements)
     }
 
     function setElementToDown(id) {
-        // console.log({...elements})
+        const firstLayoutElement = elements.find((obj) => obj.id === id)
+        let newElements = new Array();
+        
+        newElements.push(firstLayoutElement)
+        elements.map((obj) =>{
+            if (obj.id !== id) {
+                newElements.push(obj)
+            }});
+
+        updateElements(newElements)
     }
 
     function addNewElement(newElement) {

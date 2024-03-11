@@ -4,7 +4,7 @@ import { centerPosition } from "../../../const/positionTypes";
 import ImageUpload from "../../imageUpload";
 
 export default function CreateImageBlock({newId, setNewElement}) {
-    const countImages = useRef(0)
+    const countImages = useRef(1)
     
     function addNewElement(url) {
         let newItem = {
