@@ -57,6 +57,7 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
     function elementToUp() {
         setElementToUp(element.id)
     }
+
     function elementToDown() {
         setElementToDown(element.id)
     }
@@ -64,13 +65,14 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
     function handleTextChange(newText) {
         const newElement = {...element}
         newElement.content = newText
+        newElement.description = newText
         updateElement(element.id, newElement)
     }
 
     if (element.isSelected) {
         return (
             <div className={"element-block box"}  id = {element.id} 
-            style={{...element.blockStyle, "z-index":`${zIndexElement}`}}
+            style={{...element.blockStyle, zIndex   :`${zIndexElement}`}}
             onContextMenu={(event) => {handleRightClick(event)}}
             onMouseDown={(event) => {onDragging(element.id, event)}} 
             key={element.id}
@@ -86,7 +88,9 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
 
                 <div className="box " style={element.contentStyles}>
                     {
-                        element.type === imageBlockType ? element.content :
+                        element.type === imageBlockType ? (
+                            <img style={{objectFit: "cover", width: "100%", height: "100%"}} src={element.content}/>
+                        ) :
                         <input type="text" value={element.content} onChange={(event) => {handleTextChange(event.target.value)}}></input>
                     }
                 </div> 
@@ -101,10 +105,15 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
 
             <div className="box " 
             onMouseDown={onSelectElement} 
-            style={{...element.contentStyles, "z-index":`${zIndexElement}`}}             
+            style={{...element.contentStyles, zIndex:`${zIndexElement}`}}             
             
             >
-                    {element.content}
+                    {
+                        element.type === imageBlockType ? (
+                            <img style={{objectFit: "cover", width: "100%", height: "100%"}} src={element.content}/>
+                        ) :
+                        element.content
+                    }
             </div>
 
         </div>

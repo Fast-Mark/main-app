@@ -18,9 +18,10 @@ export default function ImageUpload({setImageURL}) {
           color="primary"
           aria-label="upload picture"
           component="label"
+          
         >
           <input hidden accept="image/*" type="file" onChange={handleImageLoad}/>
-          <PhotoCamera />
+          <PhotoCamera fontSize="large"/>
         </IconButton>
   );
 }

@@ -12,7 +12,7 @@ export default function InstrumentsTable({elementsCount, setNewElement, elementU
 
 
     return (
-        <div>
+        <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
             <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
             <CreateTextBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateTextBlock>
 

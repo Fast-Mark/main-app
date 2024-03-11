@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import { imageBlockType } from "../../const/classNameConst";
 
 export default function ElementsList({elements, updateElements}) {
 
@@ -34,21 +32,24 @@ export default function ElementsList({elements, updateElements}) {
       <Droppable droppableId="elements">
         {(provided) => (
           <ul {...provided.droppableProps} ref={provided.innerRef}>
-              {elements.map((element, index) => (
-              <Draggable key={element.id} draggableId={`${element.id}__draggable`} index={index}>
-              {(provided) => (
-                <li
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  key={element.id}
-                  // index меняется при перетягивании!!!
-                >
-                    {element.id}
-                </li>
+              {elements.map((element, index) => {
+                return (
+                  <Draggable key={element.id} draggableId={`${element.id}__draggable`} index={index}>
+                    {(provided) => {
+                      return (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          key={element.id}
+                          >
+                            {element.description}
+                        </li>
+                      )}
+                    }
+                  </Draggable>
+                )}
               )}
-              </Draggable>
-              ))}
               {provided.placeholder}
           </ul>
         )}

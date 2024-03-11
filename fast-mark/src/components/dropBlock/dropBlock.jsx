@@ -35,7 +35,7 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
             <div className="drop-block" style={blockPosition}>
                 <div><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
                 <div><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></div>
-                <div> <ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
+                <div><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
                 <div><ToggleButtons setElementPosition={updateAligment} startPosition={chooseAligment}></ToggleButtons></div>
                 <div>text color: </div>
             </div>

@@ -11,7 +11,7 @@ export default function TransformImage({updateContentParams}) {
     }
 
     return (
-        <ButtonGroup color="primary" >
+        <ButtonGroup color="primary" style={{width:"100%"}}>
             <Button onClick={handleClick}>развернуть</Button>
         </ButtonGroup>
     )

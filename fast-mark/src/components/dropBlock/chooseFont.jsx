@@ -53,7 +53,7 @@ export default function ChooseFont({startFont, updateContentParams}) {
     }
 
     return (
-        <FormControl>
+        <FormControl style={{width:"100%"}}>
             <InputLabel >{startFont}</InputLabel>
             <Select
             value={""}

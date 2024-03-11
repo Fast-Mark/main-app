@@ -12,6 +12,7 @@ export default function CreateTextBlock({newId, setNewElement}){
         content: "none",
         contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px'},
         type: textBlockType,
+        description: "none"
         }
     
         setNewElement(newItem)

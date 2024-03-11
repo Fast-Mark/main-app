@@ -20,7 +20,7 @@ export default function ToggleButtons({setElementPosition, startPosition}) {
       value={alignment}
       exclusive
       onChange={handleAlignment}
-      
+      style={{width:"100%"}}
       aria-label="text alignment"
     >
       <ToggleButton value="left" aria-label="left aligned">

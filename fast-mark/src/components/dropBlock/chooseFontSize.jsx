@@ -14,13 +14,14 @@ export default function ChooseFontSize({startSize, updateContentParams}) {
     }
 
     return (
-        <FormControl>
+        <FormControl style={{width:"100%"}}>
             <InputLabel>font size</InputLabel>
             <Select
             value={""}
             label={currentSize}
             onChange={(event) => {handleChange(event)}}
             inputProps={{'aria-label': 'Without label'}}
+            style={{width:"100%"}}
             >
                 {allSizes.map((size, index) => {
                     return(
