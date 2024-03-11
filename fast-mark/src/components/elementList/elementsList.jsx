@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from '@mui/material/List';
-import { imageBlockType } from "../../const/classNameConst";
+import { Input } from "@mui/material";
+import TextFieldsIcon from '@mui/icons-material/TextFields';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 export default function ElementsList({elements, updateElements}) {
+
+  const ariaLabel  = {'element-prop':"description"}
 
   const onDragEnd = (result) => {
     if (!result.destination) {
@@ -43,7 +46,9 @@ export default function ElementsList({elements, updateElements}) {
                           {...provided.dragHandleProps}
                           key={element.id}
                           >
-                            {element.description}
+                            <DragIndicatorIcon fontSize="small"/>
+                            <TextFieldsIcon fontSize="small"/>
+                            <Input inputProps={ariaLabel} defaultValue={element.description}/>
                         </li>
                       )}
                     }
