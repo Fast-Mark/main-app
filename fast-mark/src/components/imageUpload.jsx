@@ -1,5 +1,6 @@
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export default function ImageUpload({setImageURL}) {
     function handleImageLoad(event) {
@@ -11,17 +12,37 @@ export default function ImageUpload({setImageURL}) {
 
         setImageURL(URL.createObjectURL(file))
     }
+
+    const VisuallyHiddenInput = styled('input')({
+      clip: 'rect(0 0 0 0)',
+      clipPath: 'inset(50%)',
+      height: 1,
+      overflow: 'hidden',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      whiteSpace: 'nowrap',
+      width: 1,
+    });
         
 
   return (
-        <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="label"
+        <Button
+        component="label"
+        role={undefined}
+        variant="contained"
+        tabIndex={-1}
+        startIcon={<CloudUploadIcon />}
           
         >
+          upload image
           <input hidden accept="image/*" type="file" onChange={handleImageLoad}/>
-          <PhotoCamera fontSize="large"/>
-        </IconButton>
+          <VisuallyHiddenInput type="file" />
+        </Button>
+        
   );
 }
+
+
+
+
