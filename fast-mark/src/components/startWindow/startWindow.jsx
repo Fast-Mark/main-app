@@ -2,10 +2,25 @@ import { useState } from "react"
 import { WorkWindowType } from "../../const/windowTypes"
 import ImageUpload from "../imageUpload"
 import { Typography, Icon, Container, Grid} from "@mui/material"
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 
 export default function StartWindow({setImageURL, setWindowType}) {
     const [userWarning, setWarning] = useState(null)
+
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+      });
 
     function onImageUpload(url) {
         setImageURL(url)
@@ -49,11 +64,21 @@ export default function StartWindow({setImageURL, setWindowType}) {
                     
                 <Grid item>
                     <div>
-                        <Typography component="span" sx={{ flexGrow: 1 }} variant="h5"> upload image → </Typography>
-                        <ImageUpload setImageURL={onImageUpload}></ImageUpload>
-                        <div className="start-window__warning">
-                            <h2 className="start-window__warning-title">{userWarning}</h2>
-                        </div>
+                        
+                    <Button
+                        component="label"
+                        role={undefined}
+                        variant="contained"
+                        tabIndex={-1}
+                        startIcon={<CloudUploadIcon />}
+                        setImageURL={onImageUpload}
+                    >
+                    Upload file
+                    <VisuallyHiddenInput type="file" />
+                    </Button>
+                    <div className="start-window__warning">
+                        <h2 className="start-window__warning-title">{userWarning}</h2>
+                    </div>
                     </div>
                 </Grid>
                 </Grid>
@@ -61,3 +86,4 @@ export default function StartWindow({setImageURL, setWindowType}) {
         </>
     )
 }
+//setImageURL={onImageUpload}
