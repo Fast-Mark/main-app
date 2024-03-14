@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import Onest from '../../assets/fonts/OnestRegular1602-hint.ttf';
 
 const fonts = [
     'Arial',
@@ -40,6 +41,7 @@ const fonts = [
     'PT Mono',
     'PT Sans Narrow',
     'PT Serif Caption',
+    'Onest',
 ]
 
   

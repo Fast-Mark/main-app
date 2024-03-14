@@ -3,7 +3,6 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  font-family: 'onest';
 }
 
 .logo {
@@ -40,9 +39,4 @@
 
 .read-the-docs {
   color: #888;
-}
-
-@font-face {
-  font-family: onest;
-  src: url(../public/fonts/OnestRegular1602-hint.ttf);
 }
