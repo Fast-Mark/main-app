@@ -2,11 +2,11 @@ import * as React from 'react';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-export default function ToggleButtons({setElementPosition, startPosition}) {
+
+export default function ChooseAligment({setElementPosition, startPosition}) {
   const [alignment, setAlignment] = React.useState(startPosition);
 
   const handleAlignment = (event,newAlignment,) => {

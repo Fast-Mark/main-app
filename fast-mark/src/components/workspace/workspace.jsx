@@ -10,7 +10,7 @@ import {Container, Grid} from '@mui/material'
 
 // просто пример как выглядит объект элемента
 let initialElements = [
-    { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px'}, },
+    { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px', fonstStyle: 'normal'}, },
 ];
 
 const dragClickType = "drag"
@@ -19,13 +19,14 @@ const resizeClickType = "resize"
 export default function Workspace({backgroundURL}) {
     const [elements, updateElements] = useState(initialElements);
     const [isDropListActive, setDropListActive] = useState(false)
+    // contextMenu - это окошко, которое появляется при клике на воркспейс для добавления НОВЫХ элементов
     const [contextMenu, setContextMenu] = useState(null)
-    const [utils, setUtils] = useState()
+    const [selectedElement, setSelectedElement] = useState(null)
 
-    // КУЧА ДЕРЬМА
+    // TODO: сделать из них refs
     let elementCoord = {startX: 0, startY: 0, lastX: 0, lastY: 0,}
     let clickType = null
-    let selectedElement = null;
+    let clickedElement = null;
     let isActivatedListners = false
 
     function activateListners() {
@@ -37,14 +38,14 @@ export default function Workspace({backgroundURL}) {
     }
 
     const onMouseUp = (event) => {
-        selectedElement = null;
+        clickedElement = null;
         // Таким образом реализовывается нажатие по элементу
         window.removeEventListener('mousemove', onMouseMove)
     }    
     // Это обработка нажатий на сам элемент.
     function onMouseDown(id, event) {
 
-        selectedElement = id
+        clickedElement = id
         
         let currentElement = document.getElementById(id)
         const localClassName = event.target.className;
@@ -78,11 +79,11 @@ export default function Workspace({backgroundURL}) {
 // TODO сделать выдвигающуюся панельку по клику.
     
     const onMouseMove = (event) => {
-        if (selectedElement === null) return;
+        if (clickedElement === null) return;
         if (clickType === resizeClickType) {
             
             const newElements = elements.map((obj) => {
-                if (obj.id === selectedElement) {
+                if (obj.id === clickedElement) {
                     let width = `${ Number(elementCoord.lastX) + Number(event.clientX) - Number(elementCoord.startX) }px`;
                     let height = `${ Number(elementCoord.lastY) + Number(event.clientY) - Number(elementCoord.startY) }px`;
                     const newBlockStyle = {...obj.blockStyle, width: width, height: height}
@@ -102,7 +103,7 @@ export default function Workspace({backgroundURL}) {
             
             const newElements = elements.map((obj) => {
                 
-                if (obj.id === selectedElement) {
+                if (obj.id === clickedElement) {
                     const newBlockStyle = {...obj.blockStyle, left: nextX, top: nextY}
                     return {...obj, blockStyle:newBlockStyle};
                 }     
@@ -117,9 +118,10 @@ export default function Workspace({backgroundURL}) {
     function onSelectElement(id) {
         const newElements = elements.map((obj) => {
              if (obj.id === id) {
-                 return {...obj, isSelected: true}
+                setSelectedElement(obj)
+                return {...obj, isSelected: true}
              } else {
-                 return {...obj, isSelected: false}
+                return {...obj, isSelected: false}
              }
          })
 
@@ -145,14 +147,28 @@ export default function Workspace({backgroundURL}) {
         updateElements(newElements)
     }    
 
-    
+    const onUpdateElementStyle =(id, newStyles)=>{
+        const newElements = elements.map((obj) => {            
+            if (obj.id === id) {
+                const styles = {...obj.contentStyles}
+                const newContentStyles = Object.assign(styles, newStyles)
+                const newElement = {...obj}
+                newElement.contentStyles = newContentStyles;
+                console.log(newElement, newStyles)
+                return newElement
+            } else {
+                return {...obj}
+            }
+        })
+        updateElements(newElements)
+    }    
+
 
     function onWorkspaceMouseDown(event) {
         if (String(event.target.id) === "redactor" || String(event.target.id) === "workspace" || String(event.target.id) === "redactor-image") {
             onSelectElement("redactor")
-            selectedElement = null;
+            clickedElement = null;
             setDropListActive(false);
-            setUtils(null)
         } 
         
         const localClassName = String(event.target.className);
@@ -228,7 +244,14 @@ export default function Workspace({backgroundURL}) {
             <Grid item xs>
                 <div id = "toolbar">
                     {/* здесь будут все полезные инструменты */}
-                    <InstrumentsTable elementsCount={elements.length} elementUtils={utils} setNewElement={addNewElement}></InstrumentsTable>
+                    <InstrumentsTable
+                    elementsCount={elements.length}
+                    setNewElement={addNewElement}
+                    elementToUp={setElementToUp}
+                    elementToDown={setElementToDown}
+                    updateElement={onUpdateElementStyle}
+                    element={selectedElement}
+                    ></InstrumentsTable>
                 </div>
             </Grid>
 
@@ -253,7 +276,6 @@ export default function Workspace({backgroundURL}) {
                                     onDragging={onMouseDown} 
                                     setDropListActive={setDropListActive}
                                     isActiveDropList={isDropListActive} 
-                                    setDropBlock={setUtils}
                                     key={index}
                                 >
 

@@ -4,25 +4,14 @@ import { useState, useRef  } from "react";
 import ResizePoint from "../choosenElementMask/resizePoint";
 import DropBlock from "../dropBlock/dropBlock";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
-import zIndex from "@mui/material/styles/zIndex";
 
 
 
-export default function ElementBlock({element, zIndexElement, updateElement, onDragging, isActiveDropList, setDropListActive, onSelect, setElementToUp, setElementToDown, setDropBlock}) {
+export default function ElementBlock({element, zIndexElement, updateElement, onDragging, isActiveDropList, setDropListActive, onSelect, setElementToUp, setElementToDown}) {
     const dropListPositionRef = useRef({left:0,top:0})
 
     function onSelectElement() {
         onSelect(element.id)
-        setDropBlock(
-            <DropBlock 
-                updateBlockParams={updateBlockParams}
-                onUp={elementToUp}
-                onDown={elementToDown}
-                updateContentParams={updateContentParams}
-                parametrs={ {...element.contentStyles}}
-                type={element.type}>
-            </DropBlock>
-        )
     }
     
     function updateContentParams(param) {
@@ -78,7 +67,6 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
             key={element.id}
             >
             {isActiveDropList ? <DropBlock 
-                updateBlockParams={updateBlockParams}
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}

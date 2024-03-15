@@ -1,15 +1,14 @@
-import { useState } from "react"
-import ToggleButtons from "./toggleButton";
+import ChooseAligment from "./chooseAligment";
 import ChooseLayoutButton from "./chooseLayoutButton";
 import ChooseFont from "./chooseFont";
 import ChooseFontSize from "./chooseFontSize";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
 import TransformImage from "./transformImage";
+import ChooseFontStyle from "./chooseFontFormat";
 
 
-export default function DropBlock({parametrs, type, blockPosition, updateContentParams, updateBlockParams, onUp, onDown}){
-
-
+export default function DropBlock({parametrs, type, blockPosition, updateContentParams, onUp, onDown}){
+    const startTextFormat = {fontWeight: parametrs.fontWeight, fontStyle: parametrs.fontStyle, textDecoration: parametrs.textDecoration}
     function updateAligment(newAlignment) {
         if (newAlignment ==="right"){
             updateContentParams({display:"block", marginRight: "0",  marginLeft: "auto"})
@@ -29,14 +28,15 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
             return "center"
         }
     } 
-
+    
     if (type === textBlockType) {
         return(
             <div className="drop-block" style={blockPosition}>
                 <div><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
                 <div><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></div>
                 <div><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
-                <div><ToggleButtons setElementPosition={updateAligment} startPosition={chooseAligment}></ToggleButtons></div>
+                <div><ChooseAligment setElementPosition={updateAligment} startPosition={chooseAligment}></ChooseAligment></div>
+                <div><ChooseFontStyle updateTextFormant={updateContentParams} startTextFormat={startTextFormat}></ChooseFontStyle></div>
                 <div>text color: </div>
             </div>
         )
