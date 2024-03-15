@@ -22,13 +22,13 @@ const onest = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6388bc',
+      main: '#303C6c',
     },
     secondary: {
-      main: '#BC6B63',
-      light: '#f9f3f2',
+      main: '#F4976c',
+      light: '#FBE8a6',
       // dark: will be calculated from palette.secondary.main,
-      contrastText: '##f9f3f2',
+      contrastText: '#f9f3f2',
     },
   },
   typography: {
