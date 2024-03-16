@@ -41,7 +41,7 @@ export default function Workspace({backgroundURL}) {
         clickedElement.current = null;
         deActivateListners()    
     }    
-    
+
     // Это обработка нажатий на сам элемент.
     function onMouseDown(id, event) {
 
@@ -153,7 +153,6 @@ export default function Workspace({backgroundURL}) {
                 const newContentStyles = Object.assign(styles, newStyles)
                 const newElement = {...obj}
                 newElement.contentStyles = newContentStyles;
-                console.log(newElement, newStyles)
                 return newElement
             } else {
                 return {...obj}
