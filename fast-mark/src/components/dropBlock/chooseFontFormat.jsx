@@ -1,56 +1,62 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import TextFormatIcon from '@mui/icons-material/TextFormat';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
+function compareFormat(format) {
+  return !(format === undefined || format === "normal" || format === "none")
+}
+
+
 export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
   const [formats, setFormats] = useState(() => []);
-  const [isBold, setBold] = useState(startTextFormat.fontWeight===undefined ? false : true)
-  const [isItalic, setItalic] = useState(startTextFormat.fontStyle)
-  const [isUnderlined, setUnderlined] = useState(startTextFormat.textDecoration)
+  const isBold = useRef(false)
+  const isItalic = useRef(false)
+  const isUnderlined= useRef(false)
 
   useEffect(() => {
-    // setFormats([startTextFormat.fontWeight, startTextFormat.fontStyle, startTextFormat.textDecoration])
-    console.log(startTextFormat.fontWeight)
-    if (startTextFormat.fontWeight===undefined || startTextFormat.fontWeight==="normal") {
-      setBold(false)
-    } else {
-      setBold(true)
-    }
+
+    // console.log([startTextFormat.fontStyle, startTextFormat.fontWeight, startTextFormat.textDecoration])s
+    setFormats([startTextFormat.fontStyle, startTextFormat.fontWeight, startTextFormat.textDecoration])
+    isBold.current = compareFormat(startTextFormat.fontWeight)
+    isItalic.current = compareFormat(startTextFormat.fontStyle)
+    isUnderlined.current = compareFormat(startTextFormat.textDecoration)
+
+    // setBold(compareFormat(startTextFormat.fontWeight))
+    // setItalic(compareFormat(startTextFormat.fontStyle))
+    // setUnderlined(compareFormat(startTextFormat.textDecoration))
+
   }, [startTextFormat])
 
-    function setBoldFormat(){
-      console.log(isBold)
-      if (isBold === false){
-        console.log(isBold)
+    function setBoldFormat(){ 
+      if (!isBold.current){
         updateTextFormant({fontWeight:"bold"})
-        setBold(true)
+        isBold.current = true
         return
       }
       updateTextFormant({fontWeight:"normal"})
-      setBold(false)
+      isBold.current = false
     }
 
     function setItalicFormat(){
-      if (isItalic === undefined || isItalic === "normal"){
+      if (!isItalic.current){
         updateTextFormant({fontStyle:"italic"})
-        setItalic("italic")
+        isItalic.current = true
         return
       }
-      console.log(isItalic)
       updateTextFormant({fontStyle:"normal"})
-      setItalic('normal')
+      isItalic.current = false
     }
 
     function setUnderlineFormat(){
-      if (isUnderlined === undefined || isUnderlined === "none"){
+      if (!isUnderlined.current){
         updateTextFormant({textDecoration:"underline"})
-        setUnderlined("underline")
+        isUnderlined.current = true
         return
       }
       updateTextFormant({textDecoration:"none"})
-      setUnderlined("none")
+      isUnderlined.current = false
     }
 
     const handleFormat = (event, newFormats) => {
@@ -64,7 +70,7 @@ export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
         onChange={handleFormat}
         aria-label="text formatting"
       >
-        <ToggleButton selected={isBold} value="bold" onClick={setBoldFormat} aria-label="bold">
+        <ToggleButton value="bold" onClick={setBoldFormat} aria-label="bold">
           <FormatBoldIcon />
         </ToggleButton>
         <ToggleButton value="underline" onClick={setUnderlineFormat} aria-label="underline">
