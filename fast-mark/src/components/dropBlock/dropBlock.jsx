@@ -11,11 +11,11 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
     const startTextFormat = {fontWeight: parametrs.fontWeight, fontStyle: parametrs.fontStyle, textDecoration: parametrs.textDecoration}
     function updateAligment(newAlignment) {
         if (newAlignment ==="right"){
-            updateContentParams({display:"block", marginRight: "0",  marginLeft: "auto"})
+            updateContentParams({display:"block", marginRight: "0",  marginLeft: "auto", textAlign: "right"})
         } else if (newAlignment === "left") {
-            updateContentParams({display:"block", marginLeft: "0", marginRight: "auto"})
+            updateContentParams({display:"block", marginLeft: "0", marginRight: "auto", textAlign: "left"})
         } else if (newAlignment ==="center") {
-            updateContentParams({display:"block", marginLeft: "auto", marginRight: "auto"})
+            updateContentParams({display:"block", marginLeft: "auto", marginRight: "auto", textAlign: "center"})
         }
     }
 

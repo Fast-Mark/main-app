@@ -29,3 +29,8 @@
     right: 0;
     bottom: 0;
 }
+
+input {
+    background-color: none;
+    appearance: none;    
+}

@@ -9,11 +9,20 @@ const defaultInstrumentsTable = [
 
 ]
 
-export default function InstrumentsTable({ elementsCount, setNewElement, elementToUp, elementToDown, element, updateElement}) {
+export default function InstrumentsTable({element, elementsCount, setNewElement, elementToUp, elementToDown, updateElement}) {
     
     function updateContentParams(param) {
         updateElement(element.id, param);
     }
+
+    // function updateContentParams(param) {
+    //     const styles = {...element.contentStyles};
+    //     const newContentStyles = Object.assign(styles, param);
+    //     const newElement = {...element}
+    //     newElement.contentStyles = newContentStyles;
+    //     updateElement(element.id, newElement);
+    // }
+
 
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
@@ -23,14 +32,13 @@ export default function InstrumentsTable({ elementsCount, setNewElement, element
             {/* <CreateDynamicBlock newId={elementsCount} setNewElement={setNewElement}></CreateDynamicBlock> */}
 
 
-            {/* {elementUtils} */}
-        {element !== null ? <DropBlock 
+        {element !== null ? 
+            <DropBlock 
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}
-                parametrs={ {...element.contentStyles}}
+                parametrs={{...element.contentStyles}}
                 type={element.type}>
-
             </DropBlock>
             : null}
             

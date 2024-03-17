@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ElementsList from '../elementList/elementsList';
 import ElementBlock from '../elementBlock/elementBlock';
 import { resizePointClassName, textBlockType } from '../../const/classNameConst';
@@ -23,51 +23,51 @@ export default function Workspace({backgroundURL}) {
     const [contextMenu, setContextMenu] = useState(null)
     const [selectedElement, setSelectedElement] = useState(null)
 
-    // TODO: сделать из них refs
-    let elementCoord = {startX: 0, startY: 0, lastX: 0, lastY: 0,}
-    let clickType = null
-    let clickedElement = null;
-    let isActivatedListners = false
+    const elementCoord = useRef({startX: 0, startY: 0, lastX: 0, lastY: 0,})
+    const clickType = useRef(null)
+    const clickedElement = useRef(null);
 
     function activateListners() {
-        if (isActivatedListners === false) {
-            window.addEventListener("mouseup", (event) => {onMouseUp(event)});
-            window.addEventListener('mousemove', (event) => {onMouseMove(event)})
-            isActivatedListners = true
-        }
+        window.addEventListener("mouseup", (event) => {onMouseUp(event)});
+        window.addEventListener('mousemove', (event) => {onMouseMove(event)})
+    }
+
+    function deActivateListners() {
+        window.removeEventListener('mousemove', onMouseMove)
+        window.removeEventListener('mouseup', onMouseUp)
     }
 
     const onMouseUp = (event) => {
-        clickedElement = null;
-        // Таким образом реализовывается нажатие по элементу
-        window.removeEventListener('mousemove', onMouseMove)
+        clickedElement.current = null;
+        deActivateListners()    
     }    
+
     // Это обработка нажатий на сам элемент.
     function onMouseDown(id, event) {
 
-        clickedElement = id
+        clickedElement.current = id
         
         let currentElement = document.getElementById(id)
         const localClassName = event.target.className;
         try {
             if (localClassName.includes(resizePointClassName)) {
-                clickType = resizeClickType;
+                clickType.current = resizeClickType;
                 
-                elementCoord.lastX = currentElement.offsetWidth;
-                elementCoord.lastY = currentElement.offsetHeight;
+                elementCoord.current.lastX = currentElement.offsetWidth;
+                elementCoord.current.lastY = currentElement.offsetHeight;
 
-                elementCoord.startX = event.clientX;
-                elementCoord.startY = event.clientY;
+                elementCoord.current.startX = event.clientX;
+                elementCoord.current.startY = event.clientY;
                 activateListners()
 
             } else {
-            clickType = dragClickType
+            clickType.current = dragClickType
 
-            elementCoord.lastX = currentElement.offsetLeft;
-            elementCoord.lastY = currentElement.offsetTop;
+            elementCoord.current.lastX = currentElement.offsetLeft;
+            elementCoord.current.lastY = currentElement.offsetTop;
             
-            elementCoord.startX = event.clientX
-            elementCoord.startY = event.clientY    
+            elementCoord.current.startX = event.clientX
+            elementCoord.current.startY = event.clientY    
 
             activateListners()
         }   
@@ -76,16 +76,15 @@ export default function Workspace({backgroundURL}) {
         return;
     }
 }
-// TODO сделать выдвигающуюся панельку по клику.
     
     const onMouseMove = (event) => {
-        if (clickedElement === null) return;
-        if (clickType === resizeClickType) {
+        if (clickedElement.current === null) return;
+        if (clickType.current === resizeClickType) {
             
             const newElements = elements.map((obj) => {
-                if (obj.id === clickedElement) {
-                    let width = `${ Number(elementCoord.lastX) + Number(event.clientX) - Number(elementCoord.startX) }px`;
-                    let height = `${ Number(elementCoord.lastY) + Number(event.clientY) - Number(elementCoord.startY) }px`;
+                if (obj.id === clickedElement.current) {
+                    let width = `${ Number(elementCoord.current.lastX) + Number(event.clientX) - Number(elementCoord.current.startX) }px`;
+                    let height = `${ Number(elementCoord.current.lastY) + Number(event.clientY) - Number(elementCoord.current.startY) }px`;
                     const newBlockStyle = {...obj.blockStyle, width: width, height: height}
 
                     return {...obj, blockStyle: newBlockStyle};
@@ -96,14 +95,14 @@ export default function Workspace({backgroundURL}) {
             return;
         }
         
-        if (clickType === dragClickType) {
+        if (clickType.current === dragClickType) {
             
-            const nextX = event.clientX - elementCoord.startX + elementCoord.lastX;
-            const nextY = event.clientY - elementCoord.startY + elementCoord.lastY;  
+            const nextX = event.clientX - elementCoord.current.startX + elementCoord.current.lastX;
+            const nextY = event.clientY - elementCoord.current.startY + elementCoord.current.lastY;  
             
             const newElements = elements.map((obj) => {
                 
-                if (obj.id === clickedElement) {
+                if (obj.id === clickedElement.current) {
                     const newBlockStyle = {...obj.blockStyle, left: nextX, top: nextY}
                     return {...obj, blockStyle:newBlockStyle};
                 }     
@@ -154,7 +153,6 @@ export default function Workspace({backgroundURL}) {
                 const newContentStyles = Object.assign(styles, newStyles)
                 const newElement = {...obj}
                 newElement.contentStyles = newContentStyles;
-                console.log(newElement, newStyles)
                 return newElement
             } else {
                 return {...obj}
@@ -167,7 +165,7 @@ export default function Workspace({backgroundURL}) {
     function onWorkspaceMouseDown(event) {
         if (String(event.target.id) === "redactor" || String(event.target.id) === "workspace" || String(event.target.id) === "redactor-image") {
             onSelectElement("redactor")
-            clickedElement = null;
+            clickedElement.current = null;
             setDropListActive(false);
         } 
         
