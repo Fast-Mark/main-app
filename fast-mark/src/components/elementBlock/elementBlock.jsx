@@ -1,6 +1,6 @@
 import "./elementBlock.css"
 import BorderBlock from "../choosenElementMask/borderBlock";
-import { useState, useRef  } from "react";
+import { useState, useRef, useEffect  } from "react";
 import ResizePoint from "../choosenElementMask/resizePoint";
 import DropBlock from "../dropBlock/dropBlock";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
@@ -9,6 +9,7 @@ import { imageBlockType, textBlockType } from "../../const/classNameConst";
 
 export default function ElementBlock({element, zIndexElement, updateElement, onDragging, isActiveDropList, setDropListActive, onSelect, setElementToUp, setElementToDown}) {
     const dropListPositionRef = useRef({left:0,top:0})
+    const ariaLabel = {"element-prop": " "} 
 
     function onSelectElement() {
         onSelect(element.id)
@@ -19,14 +20,6 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
         const newContentStyles = Object.assign(styles, param);
         const newElement = {...element}
         newElement.contentStyles = newContentStyles;
-        updateElement(element.id, newElement);
-    }
-
-    function updateBlockParams(param) {
-        const styles = {...element.blockStyle}
-        const newBlockStyle = {...styles, param};
-        const newElement = {...element}
-        newElement.blockStyle = newBlockStyle;
         updateElement(element.id, newElement);
     }
 
@@ -50,13 +43,14 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
     function elementToDown() {
         setElementToDown(element.id)
     }
-
+// TODO: а зачем мне обновлять ВСЕ просто при вводе текста?
     function handleTextChange(newText) {
         const newElement = {...element}
         newElement.content = newText
-        newElement.description = newText
         updateElement(element.id, newElement)
     }
+
+    console.log(element.contentStyles)
 
     if (element.isSelected) {
         return (
@@ -74,12 +68,17 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
                 type={element.type}
                 blockPosition={{position: "fixed", zIndex: "999", ...dropListPositionRef.current}}></DropBlock>: null}
 
-                <div className="box " style={element.contentStyles}>
+                <div className="box " style={{...element.contentStyles, width:"100%"}}>
                     {
                         element.type === imageBlockType ? (
                             <img style={{objectFit: "cover", width: "100%", height: "100%"}} src={element.content}/>
                         ) :
-                        <input type="text" value={element.content} onChange={(event) => {handleTextChange(event.target.value)}}></input>
+                        <input type="text" 
+                            style={{...element.contentStyles, width: "98%", background:"none", border:"none"}} 
+                            defaultValue={element.content} 
+                            onChange={(event) => {handleTextChange(event.target.value)}}>
+                                
+                        </input> 
                     }
                 </div> 
 
