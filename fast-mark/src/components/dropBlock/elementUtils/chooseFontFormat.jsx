@@ -1,12 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import TextFormatIcon from '@mui/icons-material/TextFormat';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-
-function compareFormat(format) {
-  return !(format === undefined || format === "normal" || format === "none")
-}
 
 
 export default function ChooseFontStyle({updateTextFormant, startTextFormat}){

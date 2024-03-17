@@ -1,5 +1,4 @@
 import { Button, ButtonGroup } from "@mui/material";
-import { useState } from "react";
 
 
 export default function ChooseLayoutButton({onUp, onDown}) {

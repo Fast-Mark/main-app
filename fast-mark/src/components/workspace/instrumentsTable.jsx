@@ -1,7 +1,7 @@
-import DropBlock from "../dropBlock/dropBlock"
-import CreateDynamicBlock from "../dropBlock/workspaceUtils/createDynamicBlock"
-import CreateImageBlock from "../dropBlock/workspaceUtils/createImageBlock"
-import CreateTextBlock from "../dropBlock/workspaceUtils/createTextBlock"
+import DropBlock from "../dropBlock/dropBlock";
+import CreateDynamicBlock from "../workspaceUtils/createDynamicBlock"
+import CreateImageBlock from "../workspaceUtils/createImageBlock"
+import CreateTextBlock from "../workspaceUtils/createTextBlock"
 
 
 const defaultInstrumentsTable = [
@@ -15,14 +15,6 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
         updateElement(element.id, param);
     }
 
-    // function updateContentParams(param) {
-    //     const styles = {...element.contentStyles};
-    //     const newContentStyles = Object.assign(styles, param);
-    //     const newElement = {...element}
-    //     newElement.contentStyles = newContentStyles;
-    //     updateElement(element.id, newElement);
-    // }
-
 
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
@@ -33,7 +25,7 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
 
 
         {element !== null ? 
-            <DropBlock 
+            <DropBlock
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}

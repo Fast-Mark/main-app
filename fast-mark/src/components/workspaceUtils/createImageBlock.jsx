@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { imageBlockType } from "../../../const/classNameConst";
-import { centerPosition } from "../../../const/positionTypes";
-import ImageUpload from "../../imageUpload";
+import { imageBlockType } from "../../const/classNameConst";
+import { centerPosition } from "../../const/positionTypes";
+import ImageUpload from "../imageUpload";
 
 export default function CreateImageBlock({newId, setNewElement}) {
     const countImages = useRef(1)

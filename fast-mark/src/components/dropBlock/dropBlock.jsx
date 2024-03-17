@@ -1,11 +1,11 @@
-import ChooseAligment from "./chooseAligment";
-import ChooseLayoutButton from "./chooseLayoutButton";
-import ChooseFont from "./chooseFont";
-import ChooseFontSize from "./chooseFontSize";
+import ChooseAligment from "./elementUtils/chooseAligment";
+import ChooseLayoutButton from "./elementUtils/chooseLayoutButton";
+import ChooseFont from "./elementUtils/chooseFont";
+import ChooseFontSize from "./elementUtils/chooseFontSize";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
-import TransformImage from "./transformImage";
-import ChooseFontStyle from "./chooseFontFormat";
-import ChooseColor from "./chooseColor";
+import TransformImage from "./elementUtils/transformImage";
+import ChooseFontStyle from "./elementUtils/chooseFontFormat";
+import ChooseColor from "./elementUtils/chooseColor";
 
 
 export default function DropBlock({parametrs, type, blockPosition, updateContentParams, onUp, onDown}){

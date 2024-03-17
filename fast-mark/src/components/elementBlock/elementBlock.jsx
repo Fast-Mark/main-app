@@ -1,6 +1,6 @@
 import "./elementBlock.css"
 import BorderBlock from "../choosenElementMask/borderBlock";
-import { useState, useRef, useEffect  } from "react";
+import { useState, useRef  } from "react";
 import ResizePoint from "../choosenElementMask/resizePoint";
 import DropBlock from "../dropBlock/dropBlock";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
@@ -9,7 +9,6 @@ import { imageBlockType, textBlockType } from "../../const/classNameConst";
 
 export default function ElementBlock({element, zIndexElement, updateElement, onDragging, isActiveDropList, setDropListActive, onSelect, setElementToUp, setElementToDown}) {
     const dropListPositionRef = useRef({left:0,top:0})
-    const ariaLabel = {"element-prop": " "} 
 
     function onSelectElement() {
         onSelect(element.id)
@@ -49,8 +48,6 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
         newElement.content = newText
         updateElement(element.id, newElement)
     }
-
-    console.log(element.contentStyles)
 
     if (element.isSelected) {
         return (

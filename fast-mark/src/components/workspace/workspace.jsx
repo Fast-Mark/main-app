@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ElementsList from '../elementList/elementsList';
 import ElementBlock from '../elementBlock/elementBlock';
 import { resizePointClassName, textBlockType } from '../../const/classNameConst';
 import './workspace.css'
 import { centerPosition } from '../../const/positionTypes';
-import WorkspaceDropBlock from '../dropBlock/workspaceUtils/workspaceDropBlock';
+import WorkspaceDropBlock from '../workspaceUtils/workspaceDropBlock'
 import InstrumentsTable from './instrumentsTable';
 import {Container, Grid} from '@mui/material'
 

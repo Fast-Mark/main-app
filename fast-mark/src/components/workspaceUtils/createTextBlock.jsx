@@ -1,7 +1,6 @@
 import { Button } from "@mui/material"
-import { centerPosition } from "../../../const/positionTypes";
-import { textBlockType } from "../../../const/classNameConst";
-import { useRef } from "react";
+import { centerPosition } from "../../const/positionTypes";
+import { textBlockType } from "../../const/classNameConst";
 
 
 export default function CreateTextBlock({newId, setNewElement}){
