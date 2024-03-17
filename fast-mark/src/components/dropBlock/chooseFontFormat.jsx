@@ -12,7 +12,6 @@ export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
 
     function setBoldFormat(){
       if (isBold === undefined || isBold === "normal"){
-        console.log(isBold)
         updateTextFormant({fontWeight:"bold"})
         setBold("bold")
         return
@@ -27,7 +26,6 @@ export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
         setItalic("italic")
         return
       }
-      console.log(isItalic)
       updateTextFormant({fontStyle:"normal"})
       setItalic('normal')
     }
