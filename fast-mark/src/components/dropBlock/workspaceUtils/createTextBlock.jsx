@@ -10,7 +10,7 @@ export default function CreateTextBlock({newId, setNewElement}){
         let newItem = {
         id: newId,
         content: "none",
-        contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px'},
+        contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px',color:"#000000"},
         type: textBlockType,
         description: "none"
         }

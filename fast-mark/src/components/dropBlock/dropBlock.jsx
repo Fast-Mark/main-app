@@ -5,6 +5,7 @@ import ChooseFontSize from "./chooseFontSize";
 import { imageBlockType, textBlockType } from "../../const/classNameConst";
 import TransformImage from "./transformImage";
 import ChooseFontStyle from "./chooseFontFormat";
+import ChooseColor from "./chooseColor";
 
 
 export default function DropBlock({parametrs, type, blockPosition, updateContentParams, onUp, onDown}){
@@ -28,6 +29,10 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
             return "center"
         }
     } 
+
+    function updateColor(newColor) {
+        updateContentParams({color: newColor})
+    }
     
     if (type === textBlockType) {
         return(
@@ -37,7 +42,7 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
                 <div><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
                 <div><ChooseAligment setElementPosition={updateAligment} startPosition={chooseAligment}></ChooseAligment></div>
                 <div><ChooseFontStyle updateTextFormant={updateContentParams} startTextFormat={startTextFormat}></ChooseFontStyle></div>
-                <div>text color: </div>
+                <div><ChooseColor color={parametrs.color} setColor={updateColor}></ChooseColor> </div>
             </div>
         )
     } else if (type === imageBlockType) {

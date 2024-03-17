@@ -15,9 +15,8 @@ export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
   const isItalic = useRef(false)
   const isUnderlined= useRef(false)
 
-    function setBoldFormat(){ 
-      if (!isBold.current){
-        console.log(isBold)
+   function setBoldFormat(){
+      if (isBold === undefined || isBold === "normal"){
         updateTextFormant({fontWeight:"bold"})
         isBold.current = true
         return
