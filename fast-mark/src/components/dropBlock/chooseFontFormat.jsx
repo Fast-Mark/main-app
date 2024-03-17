@@ -10,27 +10,14 @@ function compareFormat(format) {
 
 
 export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
-  const [formats, setFormats] = useState(() => []);
+  const [formats, setFormats] = useState(() => [startTextFormat.fontStyle, startTextFormat.fontWeight, startTextFormat.textDecoration]);
   const isBold = useRef(false)
   const isItalic = useRef(false)
   const isUnderlined= useRef(false)
 
-  useEffect(() => {
-
-    // console.log([startTextFormat.fontStyle, startTextFormat.fontWeight, startTextFormat.textDecoration])s
-    setFormats([startTextFormat.fontStyle, startTextFormat.fontWeight, startTextFormat.textDecoration])
-    isBold.current = compareFormat(startTextFormat.fontWeight)
-    isItalic.current = compareFormat(startTextFormat.fontStyle)
-    isUnderlined.current = compareFormat(startTextFormat.textDecoration)
-
-    // setBold(compareFormat(startTextFormat.fontWeight))
-    // setItalic(compareFormat(startTextFormat.fontStyle))
-    // setUnderlined(compareFormat(startTextFormat.textDecoration))
-
-  }, [startTextFormat])
-
     function setBoldFormat(){ 
       if (!isBold.current){
+        console.log(isBold)
         updateTextFormant({fontWeight:"bold"})
         isBold.current = true
         return
@@ -60,7 +47,6 @@ export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
     }
 
     const handleFormat = (event, newFormats) => {
-      console.log(newFormats)
       setFormats(newFormats);
     };
 

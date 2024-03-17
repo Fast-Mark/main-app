@@ -15,6 +15,15 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
         updateElement(element.id, param);
     }
 
+    // function updateContentParams(param) {
+    //     const styles = {...element.contentStyles};
+    //     const newContentStyles = Object.assign(styles, param);
+    //     const newElement = {...element}
+    //     newElement.contentStyles = newContentStyles;
+    //     updateElement(element.id, newElement);
+    // }
+
+
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
             <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
