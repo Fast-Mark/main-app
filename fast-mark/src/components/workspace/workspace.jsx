@@ -27,19 +27,11 @@ export default function Workspace({backgroundURL}) {
     const clickType = useRef(null)
     const clickedElement = useRef(null);
 
-    function activateListners() {
-        window.addEventListener("mouseup", (event) => {onMouseUp(event)});
-        window.addEventListener('mousemove', (event) => {onMouseMove(event)})
-    }
 
-    function deActivateListners() {
-        window.removeEventListener('mousemove', onMouseMove)
-        window.removeEventListener('mouseup', onMouseUp)
-    }
 
     const onMouseUp = (event) => {
         clickedElement.current = null;
-        deActivateListners()    
+        // deActivateListners()    
     }    
 
     // Это обработка нажатий на сам элемент.
@@ -58,7 +50,7 @@ export default function Workspace({backgroundURL}) {
 
                 elementCoord.current.startX = event.clientX;
                 elementCoord.current.startY = event.clientY;
-                activateListners()
+                // activateListners()
 
             } else {
             clickType.current = dragClickType
@@ -69,7 +61,7 @@ export default function Workspace({backgroundURL}) {
             elementCoord.current.startX = event.clientX
             elementCoord.current.startY = event.clientY    
 
-            activateListners()
+            // activateListners()
         }   
     } catch (e) {
         // localClassName.includes(resizePointClassName) может возваращать фигню, когда localClassName получается от нажатия на svg
@@ -78,7 +70,7 @@ export default function Workspace({backgroundURL}) {
 }
     
     const onMouseMove = (event) => {
-        if (clickedElement.current === null) return;
+        if (clickedElement.current === null)  return;
         if (clickType.current === resizeClickType) {
             
             const newElements = elements.map((obj) => {
@@ -259,7 +251,7 @@ export default function Workspace({backgroundURL}) {
                  onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
                  onContextMenu={(event) => {onRedactorContextMenu(event)}}
                 >                
-                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'/>
+                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image' onMouseMove={onMouseMove} onMouseUp={onMouseUp}/>
                     <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
                     {elements.map((element, index) => {
                         try {
