@@ -15,7 +15,6 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
         updateElement(element.id, param);
     }
 
-
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
             <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
@@ -29,7 +28,7 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}
-                parametrs={{...element.contentStyles}}
+                parametrs={element.contentStyles}
                 type={element.type}>
             </DropBlock>
             : null}
