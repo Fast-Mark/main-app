@@ -27,19 +27,19 @@ export default function Workspace({backgroundURL}) {
     const clickType = useRef(null)
     const clickedElement = useRef(null);
 
-    function activateListners() {
-        window.addEventListener("mouseup", (event) => {onMouseUp(event)});
-        window.addEventListener('mousemove', (event) => {onMouseMove(event)})
-    }
+    // function activateListners() {
+    //     window.addEventListener("mouseup", (event) => {onMouseUp(event)});
+    //     window.addEventListener('mousemove', (event) => {onMouseMove(event)})
+    // }
 
-    function deActivateListners() {
-        window.removeEventListener('mousemove', onMouseMove)
-        window.removeEventListener('mouseup', onMouseUp)
-    }
+    // function deActivateListners() {
+    //     window.removeEventListener('mousemove', onMouseMove)
+    //     window.removeEventListener('mouseup', onMouseUp)
+    // }
 
     const onMouseUp = (event) => {
         clickedElement.current = null;
-        deActivateListners()    
+        // deActivateListners()    
     }    
 
     // Это обработка нажатий на сам элемент.
@@ -58,7 +58,7 @@ export default function Workspace({backgroundURL}) {
 
                 elementCoord.current.startX = event.clientX;
                 elementCoord.current.startY = event.clientY;
-                activateListners()
+                // activateListners()
 
             } else {
             clickType.current = dragClickType
@@ -69,7 +69,7 @@ export default function Workspace({backgroundURL}) {
             elementCoord.current.startX = event.clientX
             elementCoord.current.startY = event.clientY    
 
-            activateListners()
+            // activateListners()
         }   
     } catch (e) {
         // localClassName.includes(resizePointClassName) может возваращать фигню, когда localClassName получается от нажатия на svg
@@ -197,7 +197,6 @@ export default function Workspace({backgroundURL}) {
         )
     }
 
-// TODO: какого ххх перестало работать
     function setElementToUp(id) {
         const lastLayoutElement = elements.find((obj) => obj.id === id)
         let newElements = new Array();
@@ -231,35 +230,31 @@ export default function Workspace({backgroundURL}) {
     }
 
     return (
-        
-            <Grid 
-                container 
-                spacing={2}
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-            <Grid item xs>
-                <div id = "toolbar">
+        <div style={{position:"absolute", width:"100%", height:"100%"}}>
+                <div id = "toolbar" style={{position:"absolute", left:"0px"}}>
                     {/* здесь будут все полезные инструменты */}
                     <InstrumentsTable
                     elementsCount={elements.length}
                     setNewElement={addNewElement}
-                    elementToUp={setElementToUp}
-                    elementToDown={setElementToDown}
+                    setElementToUp={setElementToUp}
+                    setElementToDown={setElementToDown}
                     updateElement={onUpdateElementStyle}
                     element={selectedElement}
                     ></InstrumentsTable>
                 </div>
-            </Grid>
 
-            <Grid item xs>
                 {/* Здесь у нас рендерятся все */}
                 <div id ='redactor'
                  onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
                  onContextMenu={(event) => {onRedactorContextMenu(event)}}
+                 onMouseMove={onMouseMove}
+                    onMouseUp={onMouseUp}
+                    style={{position:"absolute", left:'25%'}}
                 >                
-                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'/>
+                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'
+                    
+
+                />
                     <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
                     {elements.map((element, index) => {
                         try {
@@ -287,15 +282,10 @@ export default function Workspace({backgroundURL}) {
                     </div>
                     {contextMenu}
                 </div>
-            </Grid>
 
-            <Grid item xs>
-                <div >
+                <div style={{position:"absolute", right:"0px"}}>
                     <ElementsList elements = {elements} updateElements={onUpdateElements} />
                 </div>
-            </Grid>
-
-            </Grid>
-        
+        </div>
     )
 }

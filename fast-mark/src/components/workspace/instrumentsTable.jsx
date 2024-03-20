@@ -9,12 +9,19 @@ const defaultInstrumentsTable = [
 
 ]
 
-export default function InstrumentsTable({element, elementsCount, setNewElement, elementToUp, elementToDown, updateElement}) {
+export default function InstrumentsTable({element, elementsCount, setNewElement, setElementToUp, setElementToDown, updateElement}) {
     
     function updateContentParams(param) {
         updateElement(element.id, param);
     }
 
+    function elementToUp() {
+        setElementToUp(element.id)
+    }
+
+    function elementToDown() {
+        setElementToDown(element.id)
+    }
 
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
@@ -29,7 +36,7 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}
-                parametrs={{...element.contentStyles}}
+                parametrs={element.contentStyles}
                 type={element.type}>
             </DropBlock>
             : null}
