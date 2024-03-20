@@ -231,28 +231,18 @@ export default function Workspace({backgroundURL}) {
 
     return (
         <div style={{position:"absolute", width:"100%", height:"100%"}}>
-            {/* <Grid 
-                container 
-                spacing={2}
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            > */}
-            {/* <Grid item xs> */}
                 <div id = "toolbar" style={{position:"absolute", left:"0px"}}>
                     {/* здесь будут все полезные инструменты */}
                     <InstrumentsTable
                     elementsCount={elements.length}
                     setNewElement={addNewElement}
-                    elementToUp={setElementToUp}
-                    elementToDown={setElementToDown}
+                    setElementToUp={setElementToUp}
+                    setElementToDown={setElementToDown}
                     updateElement={onUpdateElementStyle}
                     element={selectedElement}
                     ></InstrumentsTable>
                 </div>
-            {/* </Grid> */}
 
-            {/* <Grid item xs> */}
                 {/* Здесь у нас рендерятся все */}
                 <div id ='redactor'
                  onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
@@ -292,15 +282,10 @@ export default function Workspace({backgroundURL}) {
                     </div>
                     {contextMenu}
                 </div>
-            {/* </Grid> */}
 
-            {/* <Grid item xs> */}
                 <div style={{position:"absolute", right:"0px"}}>
                     <ElementsList elements = {elements} updateElements={onUpdateElements} />
                 </div>
-            {/* </Grid> */}
-
-            {/* </Grid> */}
         </div>
     )
 }
