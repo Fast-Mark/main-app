@@ -241,6 +241,7 @@ export default function Workspace({backgroundURL}) {
                     elementToDown={setElementToDown}
                     updateElement={onUpdateElementStyle}
                     element={selectedElement}
+                    selectElement={onSelectElement}
                     ></InstrumentsTable>
                 </div>
             </Grid>

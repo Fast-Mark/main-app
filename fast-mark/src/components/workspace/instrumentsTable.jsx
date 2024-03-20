@@ -1,3 +1,4 @@
+import DownloadResult from "../downloadResult";
 import DropBlock from "../dropBlock/dropBlock";
 import CreateDynamicBlock from "../workspaceUtils/createDynamicBlock"
 import CreateImageBlock from "../workspaceUtils/createImageBlock"
@@ -9,7 +10,7 @@ const defaultInstrumentsTable = [
 
 ]
 
-export default function InstrumentsTable({element, elementsCount, setNewElement, elementToUp, elementToDown, updateElement}) {
+export default function InstrumentsTable({element, elementsCount, setNewElement, elementToUp, elementToDown, updateElement, selectElement}) {
     
     function updateContentParams(param) {
         updateElement(element.id, param);
@@ -33,7 +34,8 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
                 type={element.type}>
             </DropBlock>
             : null}
-            
+        
+            <DownloadResult cleanSelectedElement={selectElement}></DownloadResult>
         </div>
     )
 }
