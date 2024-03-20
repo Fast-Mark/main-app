@@ -78,7 +78,7 @@ export default function Workspace({backgroundURL}) {
 }
     
     const onMouseMove = (event) => {
-        if (clickedElement.current === null) return;
+        if (clickedElement.current === null)  return;
         if (clickType.current === resizeClickType) {
             
             const newElements = elements.map((obj) => {
@@ -240,6 +240,7 @@ export default function Workspace({backgroundURL}) {
                     setElementToDown={setElementToDown}
                     updateElement={onUpdateElementStyle}
                     element={selectedElement}
+                    selectElement={onSelectElement}
                     ></InstrumentsTable>
                 </div>
 
