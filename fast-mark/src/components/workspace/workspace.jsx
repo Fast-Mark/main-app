@@ -252,10 +252,7 @@ export default function Workspace({backgroundURL}) {
                     onMouseUp={onMouseUp}
                     style={{position:"absolute", left:'25%'}}
                 >                
-                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'
-                    
-
-                />
+                <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image' style={{maxHeight:"1000px"}}/>
                     <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
                     {elements.map((element, index) => {
                         try {
