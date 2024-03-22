@@ -250,7 +250,7 @@ export default function Workspace({backgroundURL}) {
                  onContextMenu={(event) => {onRedactorContextMenu(event)}}
                  onMouseMove={onMouseMove}
                     onMouseUp={onMouseUp}
-                    style={{position:"absolute", left:'15%'}}
+                    style={{position:"absolute", left:'15%', height: "100%"}}
                 >                
                 <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image'
                     
