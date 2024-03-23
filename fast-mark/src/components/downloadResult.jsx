@@ -26,7 +26,7 @@ export default function DownloadResult({cleanSelectedElement}) {
             variant="contained"
             tabIndex={-1}
         >
-            получить результат
+            download
         </Button>
     )
 }

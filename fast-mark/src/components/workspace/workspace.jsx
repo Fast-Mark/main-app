@@ -230,8 +230,9 @@ export default function Workspace({backgroundURL}) {
     }
 
     return (
+        
         <div style={{position:"absolute", width:"100%", height:"100%"}}>
-                <div id = "toolbar" style={{position:"absolute", left:"0px"}}>
+                <div id = "toolbar" style={{position:"absolute", left:"0px", }}>
                     {/* здесь будут все полезные инструменты */}
                     <InstrumentsTable
                     elementsCount={elements.length}
@@ -285,5 +286,6 @@ export default function Workspace({backgroundURL}) {
                     <ElementsList elements = {elements} updateElements={onUpdateElements} />
                 </div>
         </div>
+        
     )
 }

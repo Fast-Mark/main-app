@@ -19,6 +19,6 @@ export default function CreateTextBlock({newId, setNewElement}){
 
     return (
         // TODO: сделать красиво с MUI
-        <Button onClick={addNewTextElement}>добавить текст</Button>
+        <Button onClick={addNewTextElement}>add text</Button>
     )
   }

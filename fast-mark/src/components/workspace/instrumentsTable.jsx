@@ -3,6 +3,8 @@ import DropBlock from "../dropBlock/dropBlock";
 import CreateDynamicBlock from "../workspaceUtils/createDynamicBlock"
 import CreateImageBlock from "../workspaceUtils/createImageBlock"
 import CreateTextBlock from "../workspaceUtils/createTextBlock"
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 const defaultInstrumentsTable = [
@@ -26,8 +28,10 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
 
     return (
         <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
+            <ButtonGroup>
             <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
             <CreateTextBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateTextBlock>
+            </ButtonGroup>
 
             {/* <CreateDynamicBlock newId={elementsCount} setNewElement={setNewElement}></CreateDynamicBlock> */}
 
