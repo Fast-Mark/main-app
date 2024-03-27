@@ -1,5 +1,4 @@
 import "./elementBlock.css"
-import BorderBlock from "../choosenElementMask/borderBlock";
 import { useState, useRef  } from "react";
 import ResizePoint from "../choosenElementMask/resizePoint";
 import DropBlock from "../dropBlock/dropBlock";
@@ -65,7 +64,7 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
                 type={element.type}
                 blockPosition={{position: "fixed", zIndex: "999", ...dropListPositionRef.current}}></DropBlock>: null}
 
-                <div className="box " style={{...element.contentStyles, width:"100%"}}>
+                <div className="box " style={{...element.contentStyles, width:"100%", border:" 4px dashed #303C6c", borderRadius:"3%"}}>
                     {
                         element.type === imageBlockType ? (
                             <img style={{objectFit: "cover", width: "100%", height: "100%"}} src={element.content}/>
@@ -78,9 +77,10 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
                         </input> 
                     }
                 </div> 
-
-                <BorderBlock></BorderBlock>
-                <ResizePoint></ResizePoint>
+                {element.type === imageBlockType ? 
+                <ResizePoint type={imageBlockType}></ResizePoint> :
+                <ResizePoint type={textBlockType}></ResizePoint>
+            }
             </div>
         )} 
     else {
