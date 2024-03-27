@@ -77,8 +77,10 @@ export default function ElementBlock({element, zIndexElement, updateElement, onD
                         </input> 
                     }
                 </div> 
-
-                <ResizePoint></ResizePoint>
+                {element.type === imageBlockType ? 
+                <ResizePoint type={imageBlockType}></ResizePoint> :
+                <ResizePoint type={textBlockType}></ResizePoint>
+            }
             </div>
         )} 
     else {

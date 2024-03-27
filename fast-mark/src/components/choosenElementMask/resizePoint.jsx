@@ -1,16 +1,13 @@
 import React from 'react';
 import { resizePointClassName } from '../../const/classNameConst';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import './resizePoints.css';
 
-export default function ResizePoint() {
+export default function ResizePoint({type}) {
 
     return (
         <>
-            <div className={`${resizePointClassName} right-buttom-point`}>
-                
+            <div className={`${resizePointClassName} ${type}-right-buttom-point`}>
             </div>
-            {/* <DragIndicatorIcon className={`${resizePointClassName} right-buttom-point`}></DragIndicatorIcon> */}
         </>
     )
 }
