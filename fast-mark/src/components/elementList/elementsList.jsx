@@ -27,7 +27,7 @@ export default function ElementsList({elements, updateElements}) {
         width: '100%',
         bgcolor: 'background.paper',
         overflow: 'auto',
-        maxHeight: 300,
+        maxHeight: 200,
         '& ul': { padding: 0 },
         border: 1,
         borderRadius: 1,

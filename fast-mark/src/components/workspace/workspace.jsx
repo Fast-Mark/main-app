@@ -231,14 +231,15 @@ export default function Workspace({backgroundURL}) {
 
     return (
         
-        <div style={{position:"absolute", width:"100%", height:"100%"}}>
+        <div style={{position:"absolute", width:"100%", height:"100%", display: "flex", justifyContent: "center"}}>
+            
                 {/* Здесь у нас рендерятся все */}
                 <div id ='redactor'
                  onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
                  onContextMenu={(event) => {onRedactorContextMenu(event)}}
                  onMouseMove={onMouseMove}
                     onMouseUp={onMouseUp}
-                    style={{position:"absolute", left:'15%', height: "100%"}}
+                    style={{height: "100%", marginRight: 33}}
                 >                
                 <img src={`${backgroundURL}`} alt='здесь должен был быть ваш макет' id='redactor-image' className='workspace-redactor__background-image' style={{maxHeight:"1000px"}}/>
                     <div className='wrokspace-redactor__elements' style={{position:"absolute"}}>
@@ -271,7 +272,7 @@ export default function Workspace({backgroundURL}) {
 
                 
                     
-                <div id = "toolbar" style={{position:"absolute", right:"140px", height: "100%"}}>
+                <div id = "toolbar" style={{height: "100%", width: "23rem"}}>
                     {/* здесь будут все полезные инструменты */}
                     <InstrumentsTable
                     elementsCount={elements.length}
@@ -288,6 +289,7 @@ export default function Workspace({backgroundURL}) {
                 {/* <div style={{position:"absolute", right:"0px", width: "400px", height: "300px"}}>
                     <ElementsList elements = {elements} updateElements={onUpdateElements} />
                 </div> */}
+                
         </div>
         
     )

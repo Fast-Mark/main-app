@@ -27,7 +27,7 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
     }
 
     return (
-        <div style={{display:"flex", flexDirection:"column", alignItems: "center", height: "100%", justifyContent: "flex-start", position:"absolute", right:"5%", padding:"2.5%"}}>
+        <div style={{display:"flex", flexDirection:"column", alignItems: "flex-start", height: "100%", justifyContent: "center"}}>
             {/* <CreateDynamicBlock newId={elementsCount} setNewElement={setNewElement}></CreateDynamicBlock> */}
 
 
@@ -44,15 +44,19 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
         
             {elementsList}
             
-            <hr style={{width:"10px", background: "gray", borderRadius: "5px", width:"95%"}}></hr>
+            
 
-            <div style={{ display:"flex"}}>
-                <ButtonGroup style={{marginTop: "10px", marginBottom: "10px"}}>
+            <div style={{ display:"flex", marginTop: "10px", width: "100%", justifyContent: "space-between"}} >
+                <div> 
+                <ButtonGroup>
                     <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
                     <CreateTextBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateTextBlock>
                 </ButtonGroup>
+                </div>
 
-                <DownloadResult style={{marginTop: "10px"}} cleanSelectedElement={selectElement}></DownloadResult>
+                <div>
+                <DownloadResult cleanSelectedElement={selectElement}></DownloadResult>
+                </div>
             </div>
         </div>
     )
