@@ -27,17 +27,13 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
     }
 
     return (
-        <div style={{display:"flex", flexDirection:"column", alignItems: "center"}}>
-            <ButtonGroup>
-            <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
-            <CreateTextBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateTextBlock>
-            </ButtonGroup>
-
+        <div style={{display:"flex", flexDirection:"column", alignItems: "center", height: "100%", justifyContent: "flex-start"}}>
             {/* <CreateDynamicBlock newId={elementsCount} setNewElement={setNewElement}></CreateDynamicBlock> */}
 
 
-        {element !== null ? 
+            {element !== null ? 
             <DropBlock
+                style={{marginBottom: "10px"}}
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}
@@ -46,7 +42,12 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
             </DropBlock>
             : null}
         
-            <DownloadResult cleanSelectedElement={selectElement}></DownloadResult>
+            <ButtonGroup style={{marginTop: "10px", marginBottom: "10px"}}>
+            <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
+            <CreateTextBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateTextBlock>
+            </ButtonGroup>
+
+            <DownloadResult style={{marginTop: "10px"}} cleanSelectedElement={selectElement}></DownloadResult>
         </div>
     )
 }

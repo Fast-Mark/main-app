@@ -29,6 +29,8 @@ export default function ElementsList({elements, updateElements}) {
         overflow: 'auto',
         maxHeight: 300,
         '& ul': { padding: 0 },
+        border: 1,
+        borderRadius: 1,
       }}
     >
     <DragDropContext onDragEnd={onDragEnd}>

@@ -232,19 +232,6 @@ export default function Workspace({backgroundURL}) {
     return (
         
         <div style={{position:"absolute", width:"100%", height:"100%"}}>
-                <div id = "toolbar" style={{position:"absolute", left:"0px", }}>
-                    {/* здесь будут все полезные инструменты */}
-                    <InstrumentsTable
-                    elementsCount={elements.length}
-                    setNewElement={addNewElement}
-                    setElementToUp={setElementToUp}
-                    setElementToDown={setElementToDown}
-                    updateElement={onUpdateElementStyle}
-                    element={selectedElement}
-                    selectElement={onSelectElement}
-                    ></InstrumentsTable>
-                </div>
-
                 {/* Здесь у нас рендерятся все */}
                 <div id ='redactor'
                  onMouseDown={(event) => {onWorkspaceMouseDown(event)}}
@@ -282,7 +269,22 @@ export default function Workspace({backgroundURL}) {
                     {contextMenu}
                 </div>
 
-                <div style={{position:"absolute", right:"0px"}}>
+                
+                    
+                <div id = "toolbar" style={{position:"absolute", right:"0px", height: "50rem"}}>
+                    {/* здесь будут все полезные инструменты */}
+                    <InstrumentsTable
+                    elementsCount={elements.length}
+                    setNewElement={addNewElement}
+                    setElementToUp={setElementToUp}
+                    setElementToDown={setElementToDown}
+                    updateElement={onUpdateElementStyle}
+                    element={selectedElement}
+                    selectElement={onSelectElement}
+                    ></InstrumentsTable>
+                </div>
+
+                <div style={{position:"absolute", right:"0px", width: "400px", height: "300px"}}>
                     <ElementsList elements = {elements} updateElements={onUpdateElements} />
                 </div>
         </div>

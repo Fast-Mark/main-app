@@ -37,17 +37,17 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
     if (type === textBlockType) {
         return(
             <div className="drop-block" style={blockPosition}>
-                <div><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
-                <div><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></div>
-                <div><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
-                <div><ChooseAligment setElementPosition={updateAligment} startPosition={chooseAligment}></ChooseAligment></div>
-                <div><ChooseFontStyle updateTextFormant={updateContentParams} startTextFormat={startTextFormat}></ChooseFontStyle></div>
-                <div><ChooseColor color={parametrs.color} setColor={updateColor}></ChooseColor> </div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseAligment setElementPosition={updateAligment} startPosition={chooseAligment}></ChooseAligment></div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFontStyle updateTextFormant={updateContentParams} startTextFormat={startTextFormat}></ChooseFontStyle></div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseColor color={parametrs.color} setColor={updateColor}></ChooseColor> </div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
             </div>
         )
     } else if (type === imageBlockType) {
         return (
-            <div className="drop-block" style={blockPosition}>
+            <div className="drop-block" style={blockPosition} >
                 <div><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
                 <div><TransformImage updateContentParams={updateContentParams}></TransformImage></div>
             </div>
