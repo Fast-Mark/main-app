@@ -271,7 +271,7 @@ export default function Workspace({backgroundURL}) {
 
                 
                     
-                <div id = "toolbar" style={{position:"absolute", right:"0px", height: "60rem"}}>
+                <div id = "toolbar" style={{position:"absolute", right:"140px", height: "100%"}}>
                     {/* здесь будут все полезные инструменты */}
                     <InstrumentsTable
                     elementsCount={elements.length}
