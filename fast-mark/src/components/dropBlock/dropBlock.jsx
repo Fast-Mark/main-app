@@ -8,8 +8,9 @@ import ChooseFontStyle from "./elementUtils/chooseFontFormat";
 import ChooseColor from "./elementUtils/chooseColor";
 
 
-export default function DropBlock({parametrs, type, blockPosition, updateContentParams, onUp, onDown}){
+export default function DropBlock({parametrs, type, blockPosition, isDisabled, updateContentParams, onUp, onDown}){
     const startTextFormat = {fontWeight: parametrs.fontWeight, fontStyle: parametrs.fontStyle, textDecoration: parametrs.textDecoration}
+
     function updateAligment(newAlignment) {
         if (newAlignment ==="right"){
             updateContentParams({display:"block", marginRight: "0",  marginLeft: "auto", textAlign: "right"})
@@ -37,12 +38,12 @@ export default function DropBlock({parametrs, type, blockPosition, updateContent
     if (type === textBlockType) {
         return(
             <div className="drop-block" style={blockPosition}>
-                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams}></ChooseFont></div>
-                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams}></ChooseFontSize> </div>
-                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseAligment setElementPosition={updateAligment} startPosition={chooseAligment}></ChooseAligment></div>
-                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFontStyle updateTextFormant={updateContentParams} startTextFormat={startTextFormat}></ChooseFontStyle></div>
-                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseColor color={parametrs.color} setColor={updateColor}></ChooseColor> </div>
-                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseLayoutButton onUp={onUp} onDown={onDown}></ChooseLayoutButton> </div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFont startFont={parametrs.fontFamily} updateContentParams={updateContentParams} isDisabled={isDisabled}></ChooseFont></div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFontSize startFont={parametrs.fontSize} updateContentParams={updateContentParams} isDisabled={isDisabled}></ChooseFontSize> </div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseAligment setElementPosition={updateAligment} startPosition={chooseAligment} isDisabled={isDisabled}></ChooseAligment></div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseFontStyle updateTextFormant={updateContentParams} startTextFormat={startTextFormat} isDisabled={isDisabled}></ChooseFontStyle></div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseColor color={parametrs.color} setColor={updateColor} isDisabled={isDisabled}></ChooseColor> </div>
+                <div style={{marginTop: "10px", marginBottom: "10px"}}><ChooseLayoutButton onUp={onUp} onDown={onDown} isDisabled={isDisabled}></ChooseLayoutButton> </div>
             </div>
         )
     } else if (type === imageBlockType) {

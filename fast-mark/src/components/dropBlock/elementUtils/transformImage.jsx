@@ -2,7 +2,7 @@ import { Button, ButtonGroup } from "@mui/material"
 import { useRef } from "react"
 
 
-export default function TransformImage({updateContentParams}) {
+export default function TransformImage({updateContentParams, isDisabled}) {
     const transformingRef = useRef(0)
 
     function handleClick() {
@@ -11,7 +11,7 @@ export default function TransformImage({updateContentParams}) {
     }
 
     return (
-        <ButtonGroup color="primary" style={{width:"100%"}}>
+        <ButtonGroup color="primary" style={{width:"100%"}} disabled={isDisabled}>
             <Button onClick={handleClick}>развернуть</Button>
         </ButtonGroup>
     )

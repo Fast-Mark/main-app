@@ -3,7 +3,7 @@ import { InputLabel, MenuItem, Select } from "@mui/material";
 import { useState } from "react";
 
 
-export default function ChooseFontSize({startSize, updateContentParams}) {
+export default function ChooseFontSize({startSize, updateContentParams, isDisabled}) {
     const [currentSize, setCurrentSize] = useState(startSize)
     
     const allSizes = Array.from({length:10}, (_, index) => index*4+1)
@@ -14,7 +14,7 @@ export default function ChooseFontSize({startSize, updateContentParams}) {
     }
 
     return (
-        <FormControl style={{width:"100%"}}>
+        <FormControl style={{width:"100%"}} disabled={isDisabled}>
             <InputLabel>font size</InputLabel>
             <Select
             value={""}

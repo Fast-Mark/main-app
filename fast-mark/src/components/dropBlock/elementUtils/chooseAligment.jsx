@@ -6,7 +6,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
 
 
-export default function ChooseAligment({setElementPosition, startPosition}) {
+export default function ChooseAligment({setElementPosition, startPosition, isDisabled}) {
   const [alignment, setAlignment] = useState(startPosition);
 
   const handleAlignment = (event,newAlignment,) => {
@@ -22,6 +22,7 @@ export default function ChooseAligment({setElementPosition, startPosition}) {
       onChange={handleAlignment}
       style={{width:"100%"}}
       aria-label="text alignment"
+      disabled={isDisabled}
     >
       <ToggleButton value="left" aria-label="left aligned">
         <FormatAlignLeftIcon />

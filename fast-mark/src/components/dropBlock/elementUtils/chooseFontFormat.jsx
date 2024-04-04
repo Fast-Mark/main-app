@@ -5,7 +5,7 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 
-export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
+export default function ChooseFontStyle({updateTextFormant, startTextFormat, isDisabled}){
   const [formats, setFormats] = useState(() => [startTextFormat.fontStyle, startTextFormat.fontWeight, startTextFormat.textDecoration]);
   const isBold = useRef(false)
   const isItalic = useRef(false)
@@ -50,6 +50,7 @@ export default function ChooseFontStyle({updateTextFormant, startTextFormat}){
         value={formats}
         onChange={handleFormat}
         aria-label="text formatting"
+        disabled={isDisabled}
       >
         <ToggleButton value="bold" onClick={setBoldFormat} aria-label="bold">
           <FormatBoldIcon />

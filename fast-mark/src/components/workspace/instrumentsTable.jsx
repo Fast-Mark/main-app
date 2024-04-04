@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from "react";
 import DownloadResult from "../downloadResult";
 import DropBlock from "../dropBlock/dropBlock";
 import CreateDynamicBlock from "../workspaceUtils/createDynamicBlock"
@@ -7,13 +8,10 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 
-const defaultInstrumentsTable = [
-    <CreateImageBlock></CreateImageBlock> ,
-
-]
-
 export default function InstrumentsTable({element, elementsCount, setNewElement, setElementToUp, setElementToDown, updateElement, selectElement, elementsList}) {
-    
+    //на будущее, если захочется делать блоки некликабельными
+    const [isDisabled, setDisabled] = useState(false)
+
     function updateContentParams(param) {
         updateElement(element.id, param);
     }
@@ -31,16 +29,18 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
             {/* <CreateDynamicBlock newId={elementsCount} setNewElement={setNewElement}></CreateDynamicBlock> */}
 
 
-            {element !== null ? 
+            {/* {element !== null ?  */}
             <DropBlock
                 style={{marginBottom: "10px"}}
                 onUp={elementToUp}
                 onDown={elementToDown}
                 updateContentParams={updateContentParams}
                 parametrs={element.contentStyles}
-                type={element.type}>
+                type={element.type}
+                isDisabled={isDisabled}
+                >
             </DropBlock>
-            : null}
+            {/* : null} */}
         
             {elementsList}
             

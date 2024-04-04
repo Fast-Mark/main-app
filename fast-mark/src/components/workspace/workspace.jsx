@@ -6,11 +6,10 @@ import './workspace.css'
 import { centerPosition } from '../../const/positionTypes';
 import WorkspaceDropBlock from '../workspaceUtils/workspaceDropBlock'
 import InstrumentsTable from './instrumentsTable';
-import {Container, Grid} from '@mui/material'
 
 // просто пример как выглядит объект элемента
 let initialElements = [
-    { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, fontFamily:"arial", fontSize:'14px', fonstStyle: 'normal', color:"#000000"}, },
+    { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, textAlign:"center", fontFamily:"arial", fontSize:'14px', fonstStyle: 'normal', color:"#000000"}, },
 ];
 
 const dragClickType = "drag"
@@ -21,21 +20,11 @@ export default function Workspace({backgroundURL}) {
     const [isDropListActive, setDropListActive] = useState(false)
     // contextMenu - это окошко, которое появляется при клике на воркспейс для добавления НОВЫХ элементов
     const [contextMenu, setContextMenu] = useState(null)
-    const [selectedElement, setSelectedElement] = useState(null)
+    const [selectedElement, setSelectedElement] = useState(elements[0])
 
     const elementCoord = useRef({startX: 0, startY: 0, lastX: 0, lastY: 0,})
     const clickType = useRef(null)
     const clickedElement = useRef(null);
-
-    // function activateListners() {
-    //     window.addEventListener("mouseup", (event) => {onMouseUp(event)});
-    //     window.addEventListener('mousemove', (event) => {onMouseMove(event)})
-    // }
-
-    // function deActivateListners() {
-    //     window.removeEventListener('mousemove', onMouseMove)
-    //     window.removeEventListener('mouseup', onMouseUp)
-    // }
 
     const onMouseUp = (event) => {
         clickedElement.current = null;

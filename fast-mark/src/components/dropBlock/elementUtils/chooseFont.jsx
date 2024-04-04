@@ -23,7 +23,7 @@ const fonts = [
 
   
 
-export default function ChooseFont({startFont, updateContentParams}) {
+export default function ChooseFont({startFont, updateContentParams, isDisabled}) {
     const [currentFont, setCurrentFont] = useState(startFont)
 
     function handleChange(event) {
@@ -32,7 +32,7 @@ export default function ChooseFont({startFont, updateContentParams}) {
     }
 
     return (
-        <FormControl style={{width:"100%"}}>
+        <FormControl style={{width:"100%"}} disabled={isDisabled}>
             <InputLabel >{startFont}</InputLabel>
             <Select
             value={""}

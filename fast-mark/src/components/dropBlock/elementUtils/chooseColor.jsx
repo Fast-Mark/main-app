@@ -2,7 +2,7 @@ import { Input } from "@mui/material";
 import { HexColorPicker } from "react-colorful";
 
 
-export default function ChooseColor({color, setColor}) {
+export default function ChooseColor({color, setColor, isDisabled}) {
 
     function handleChange(value) {
         setColor(value)
@@ -11,7 +11,7 @@ export default function ChooseColor({color, setColor}) {
     return (
         <div className="drop-block__choose-color">
             <HexColorPicker color={color} onChange={handleChange} />
-            <Input value={color} onChange={(event) => {handleChange(event.target.value)}}>  </Input>
+            <Input value={color} onChange={(event) => {handleChange(event.target.value)}} disabled={isDisabled}>  </Input>
         </div>
     )
 }
