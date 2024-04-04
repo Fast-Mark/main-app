@@ -9,7 +9,7 @@ import InstrumentsTable from './instrumentsTable';
 
 // просто пример как выглядит объект элемента
 let initialElements = [
-    { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: false, contentStyles: {...centerPosition, textAlign:"center", fontFamily:"arial", fontSize:'14px', fonstStyle: 'normal', color:"#000000"}, },
+    { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: true, contentStyles: {...centerPosition, textAlign:"center", fontFamily:"arial", fontSize:'14px', fonstStyle: 'normal', color:"#000000"}, },
 ];
 
 const dragClickType = "drag"
