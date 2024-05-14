@@ -6,6 +6,7 @@ import CreateImageBlock from "../workspaceUtils/createImageBlock"
 import CreateTextBlock from "../workspaceUtils/createTextBlock"
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import AddTable from "../addTable/addTable";
 
 
 export default function InstrumentsTable({element, elementsCount, setNewElement, setElementToUp, setElementToDown, updateElement, selectElement, elementsList}) {
@@ -51,13 +52,15 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
                 <ButtonGroup>
                     <CreateImageBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateImageBlock>
                     <CreateTextBlock newId={elementsCount+1} setNewElement={setNewElement}></CreateTextBlock>
+                    <AddTable></AddTable>
+
                 </ButtonGroup>
                 </div>
 
-                <div>
-                <DownloadResult cleanSelectedElement={selectElement}></DownloadResult>
-                </div>
             </div>
+                <div>
+                <DownloadResult  cleanSelectedElement={selectElement}></DownloadResult>
+                </div>
         </div>
     )
 }

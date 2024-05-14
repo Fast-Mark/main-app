@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import html2canvas from "html2canvas";
 
-
 export default function DownloadResult({cleanSelectedElement}) {
 
     function createScreenshot() {
@@ -25,6 +24,8 @@ export default function DownloadResult({cleanSelectedElement}) {
             role={undefined}
             variant="contained"
             tabIndex={-1}
+            fullWidth
+            style={{width:"23rem", marginTop:"5px"}}
         >
             download
         </Button>
