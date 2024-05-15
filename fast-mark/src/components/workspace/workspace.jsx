@@ -6,6 +6,7 @@ import './workspace.css'
 import { centerPosition } from '../../const/positionTypes';
 import WorkspaceDropBlock from '../workspaceUtils/workspaceDropBlock'
 import InstrumentsTable from './instrumentsTable';
+import { baseURL, uploadItems } from '../../const/endpoints';
 
 // просто пример как выглядит объект элемента
 let initialElements = [
@@ -25,6 +26,28 @@ export default function Workspace({backgroundURL}) {
     const elementCoord = useRef({startX: 0, startY: 0, lastX: 0, lastY: 0,})
     const clickType = useRef(null)
     const clickedElement = useRef(null);
+
+    const sendInitialElementsToServer = async (event) => {
+        try {
+            const response = await fetch(`${baseURL}${uploadItems}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(initialElements),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error status: ${response.status}`);
+            }
+    
+            // Обработка успешного ответа
+            const data = await response.json();
+            console.log('Data sent successfully:', data);
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+    };
 
     const onMouseUp = (event) => {
         clickedElement.current = null;
