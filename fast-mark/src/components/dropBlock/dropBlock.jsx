@@ -2,7 +2,7 @@ import ChooseAligment from "./elementUtils/chooseAligment";
 import ChooseLayoutButton from "./elementUtils/chooseLayoutButton";
 import ChooseFont from "./elementUtils/chooseFont";
 import ChooseFontSize from "./elementUtils/chooseFontSize";
-import { imageBlockType, textBlockType } from "../../const/classNameConst";
+import { imageBlockType, textBlockType } from "../../const/blockTypes";
 import TransformImage from "./elementUtils/transformImage";
 import ChooseFontStyle from "./elementUtils/chooseFontFormat";
 import ChooseColor from "./elementUtils/chooseColor";

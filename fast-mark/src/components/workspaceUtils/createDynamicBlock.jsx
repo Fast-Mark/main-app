@@ -1,4 +1,4 @@
-import { dynamicBlockType } from "../../const/classNameConst";
+import { dynamicBlockType } from "../../const/blockTypes";
 import { centerPosition } from "../../const/positionTypes";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';

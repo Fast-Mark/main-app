@@ -2,7 +2,7 @@ import "./elementBlock.css"
 import { useState, useRef  } from "react";
 import ResizePoint from "../choosenElementMask/resizePoint";
 import DropBlock from "../dropBlock/dropBlock";
-import { imageBlockType, textBlockType } from "../../const/classNameConst";
+import { imageBlockType, textBlockType } from "../../const/blockTypes";
 
 
 
