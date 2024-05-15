@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import ElementsList from '../elementList/elementsList';
 import ElementBlock from '../elementBlock/elementBlock';
-import { resizePointClassName, textBlockType } from '../../const/classNameConst';
+import { resizePointClassName } from '../../const/classNameConst';
+import { textBlockType } from '../../const/blockTypes';
 import './workspace.css'
 import { centerPosition } from '../../const/positionTypes';
 import WorkspaceDropBlock from '../workspaceUtils/workspaceDropBlock'
@@ -12,6 +13,8 @@ import { baseURL, uploadItems } from '../../const/endpoints';
 let initialElements = [
     { id: '1', content: 'element 1', description: 'element 1',type: textBlockType, blockStyle: {left: 0, top: 0, width: "100px",  height: "100px"}, isSelected: true, contentStyles: {...centerPosition, textAlign:"center", fontFamily:"arial", fontSize:'14px', fonstStyle: 'normal', color:"#000000"}, },
 ];
+
+
 
 const dragClickType = "drag"
 const resizeClickType = "resize"
@@ -26,6 +29,35 @@ export default function Workspace({backgroundURL}) {
     const elementCoord = useRef({startX: 0, startY: 0, lastX: 0, lastY: 0,})
     const clickType = useRef(null)
     const clickedElement = useRef(null);
+
+
+    function deserializeElements() {
+        const newElementsList = elements.map((obj) => {
+            const newObj = {...obj}
+            delete newObj.isSelected
+            delete newObj.display
+    
+            if (newObj.contentStyles.marginRight == "auto" & newObj.contentStyles.marginLeft == "auto") {
+                newObj.contentStyles.position = "center"
+            } else if (newObj.contentStyles.marginLeft == "0") {
+                newObj.contentStyles.position = "left"
+            } else if (newObj.contentStyles.marginRight == "0") {
+                newObj.contentStyles.position = "right"
+            }
+                
+            delete newObj.marginRight
+            delete newObj.marginLeft
+    
+            return newObj
+        })
+    
+        return newElementsList
+    }
+
+    const downloadResult = (event) => {
+        // TODO: отправка на сервер вместе с картинкой. Думааю, будет лучше просто передавать сериалайзер...
+        console.log(deserializeElements())
+    }
 
     const sendInitialElementsToServer = async (event) => {
         try {
@@ -48,6 +80,7 @@ export default function Workspace({backgroundURL}) {
             console.error('Error sending data:', error);
         }
     };
+
 
     const onMouseUp = (event) => {
         clickedElement.current = null;
@@ -294,6 +327,7 @@ export default function Workspace({backgroundURL}) {
                     updateElement={onUpdateElementStyle}
                     element={selectedElement}
                     selectElement={onSelectElement}
+                    downloadResult={downloadResult}
                     elementsList={<ElementsList elements = {elements} updateElements={onUpdateElements} />}
                     ></InstrumentsTable>
                 </div>

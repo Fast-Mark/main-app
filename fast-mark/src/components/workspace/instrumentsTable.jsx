@@ -9,7 +9,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import AddTable from "../addTable/addTable";
 
 
-export default function InstrumentsTable({element, elementsCount, setNewElement, setElementToUp, setElementToDown, updateElement, selectElement, elementsList}) {
+export default function InstrumentsTable({element, elementsCount, setNewElement, setElementToUp, setElementToDown, updateElement, selectElement, elementsList, downloadResult}) {
     //на будущее, если захочется делать блоки некликабельными
     const [isDisabled, setDisabled] = useState(false)
 
@@ -59,7 +59,7 @@ export default function InstrumentsTable({element, elementsCount, setNewElement,
 
             </div>
                 <div>
-                <DownloadResult  cleanSelectedElement={selectElement}></DownloadResult>
+                    <DownloadResult downloadResult={downloadResult} cleanSelectedElement={selectElement}></DownloadResult>
                 </div>
         </div>
     )

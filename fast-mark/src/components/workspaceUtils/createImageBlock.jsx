@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { imageBlockType } from "../../const/classNameConst";
+import { imageBlockType } from "../../const/blockTypes"
 import { centerPosition } from "../../const/positionTypes";
 import ImageUpload from "../imageUpload";
 import { Button, styled } from "@mui/material";

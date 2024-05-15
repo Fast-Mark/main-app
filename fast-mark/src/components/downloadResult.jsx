@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import html2canvas from "html2canvas";
 
-export default function DownloadResult({cleanSelectedElement}) {
+export default function DownloadResult({cleanSelectedElement, downloadResult}) {
 
     function createScreenshot() {
         html2canvas(document.querySelector("#redactor")).then(canvas => {
@@ -15,6 +15,7 @@ export default function DownloadResult({cleanSelectedElement}) {
     function handleClick(event) {
         cleanSelectedElement("workspace")
         setTimeout(createScreenshot, 500)
+        downloadResult()
     } 
 
     return (
