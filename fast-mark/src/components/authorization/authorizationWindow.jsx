@@ -1,35 +1,35 @@
 import { useState } from "react"
 import axios from 'axios'
-import baseURL from '../../const/endpoints'
+import {baseURL} from '../../const/endpoints'
+import Button from "@mui/material/Button";
+import {Container, Typography} from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 
-const loginPage = "login"
-const createUserPage = "createUser"
+const loginPageType = "login"
+const createUserPageType = "createUser"
 
-export default function authorizationWindow({switchNextPage}) {
-    const [currentPage, setCurrentPage] = useState(loginPage)
+export default function AuthorizationWindow({switchNextPage}) {
+    const [currentPage, setCurrentPage] = useState(loginPageType)
 
-        // TODO: надо бы вывести в отдельные компоненты вход и создание ака
 
     return (
         <>
 
 
-            {currentPage === loginPage? 
-            <>
-                <loginPage setCurrentPage={setCurrentPage} switchNextPage={switchNextPage}></loginPage>
-            </>
-            :  
-            <>
-                <SignUpPage></SignUpPage>
-                    
-            </>
+            {currentPage === loginPageType?
+
+                <LoginPage setCurrentPage={setCurrentPage} switchNextPage={switchNextPage}></LoginPage>
+            :
+
+                <SignUpPage setCurrentPage={setCurrentPage} switchNextPage={switchNextPage}></SignUpPage>
+
             }
         </>
     )
 }
 
-function loginPage({setCurrentPage, switchNextPage}) {
+function LoginPage({setCurrentPage, switchNextPage}) {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -45,12 +45,11 @@ function loginPage({setCurrentPage, switchNextPage}) {
           .then(function (response) {
             localStorage.token = response.data.access_token;
             console.log(response.headers.get('Authorization'))
-            switchNextPage(true)
+            switchNextPage()
           })
           .catch(function (error) {
             // handle error
             console.log(error);
-            switchNextPage(false)
           })
           console.log(response)
     }
@@ -80,10 +79,10 @@ function loginPage({setCurrentPage, switchNextPage}) {
         />
       </form>
 
-        <Button variant="contained" onClick={() => {setCurrentPage(loginPage)}} color="primary" fullWidth>
+        <Button variant="contained" onClick={handleLogin} color="primary" fullWidth>
             Войти в аккаунт
         </Button>   
-        <Button variant="outlined" onClick={() => {setCurrentPage(createUserPage)}} color="primary" fullWidth>
+        <Button variant="outlined" onClick={() => {setCurrentPage(createUserPageType)}} color="primary" fullWidth>
             Зарегистрироваться
         </Button>   
     </Container>
@@ -91,7 +90,7 @@ function loginPage({setCurrentPage, switchNextPage}) {
     )
 }
 
-function SignUpPage() {
+function SignUpPage({setCurrentPage, switchNextPage}) {
     const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const [secondPassword, setSecondPassword] = useState('')
@@ -101,10 +100,9 @@ function SignUpPage() {
 
     axios.get(`${baseURL}/create-user?username=${name}&email=${email}&password=${password}`)
     .then(function (response) {
-      setNextPage(false)
+      switchNextPage()
     })
     .catch(function (error) {
-      setNextPage(false)
     })
   }
 
@@ -155,7 +153,7 @@ function SignUpPage() {
       </form>
 
 
-      <Button variant="outlined" onClick={() => {setLoginPage(true)}} color="primary" fullWidth>
+      <Button variant="outlined" onClick={() => {setCurrentPage(loginPageType)}} color="primary" fullWidth>
           Войти в аккаунт
       </Button>
     </Container>

@@ -3,8 +3,10 @@ import Workspace from './components/workspace/workspace'
 import StartWindow from './components/startWindow/startWindow';
 import { ResultWindowType, StartWindowType, WorkWindowType, AuthorizationWindowType } from './const/windowTypes';
 import { ThemeProvider, createTheme } from '@mui/material';
+import AuthorizationWindow from "./components/authorization/authorizationWindow";
 
 const App = () => {
+  const [isAuthorizationRequired, setAuthorizationRequired] = useState(true) // TODO: checkAuthorize func
   const [currentWindowType, setWindowType] = useState(StartWindowType)
   const [docURL, setDocURL] = useState("")
 
@@ -15,7 +17,15 @@ const App = () => {
     },
   })
 
-  if (currentWindowType === StartWindowType) {
+  if (isAuthorizationRequired) {
+    return (
+
+      <ThemeProvider theme={theme}>
+        <AuthorizationWindow switchNextPage={() => {setAuthorizationRequired(false)}}></AuthorizationWindow>
+      </ThemeProvider>
+
+    );
+  } else if (currentWindowType === StartWindowType) {
     return (
         
       <ThemeProvider theme={theme}>
