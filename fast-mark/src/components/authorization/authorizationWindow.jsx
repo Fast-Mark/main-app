@@ -2,8 +2,9 @@ import { useState } from "react"
 import axios from 'axios'
 import {baseURL} from '../../const/endpoints'
 import Button from "@mui/material/Button";
-import {Container, Typography} from "@mui/material";
+import {Alert, Container, Snackbar, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
+// import {checkAuthToken} from "../../checkAuthorization.js";
 
 
 const loginPageType = "login"
@@ -15,8 +16,6 @@ export default function AuthorizationWindow({switchNextPage}) {
 
     return (
         <>
-
-
             {currentPage === loginPageType?
 
                 <LoginPage setCurrentPage={setCurrentPage} switchNextPage={switchNextPage}></LoginPage>
@@ -32,6 +31,7 @@ export default function AuthorizationWindow({switchNextPage}) {
 function LoginPage({setCurrentPage, switchNextPage}) {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(false)
 
     function handleLogin() {
         const response = axios.post(`${baseURL}/token`, {
@@ -48,7 +48,7 @@ function LoginPage({setCurrentPage, switchNextPage}) {
             switchNextPage()
           })
           .catch(function (error) {
-            // handle error
+            setError(true)
             console.log(error);
           })
           console.log(response)
@@ -77,11 +77,17 @@ function LoginPage({setCurrentPage, switchNextPage}) {
           margin="normal"
           onChange={(event) => {setPassword(event.target.value)}}
         />
-      </form>
-
         <Button variant="contained" onClick={handleLogin} color="primary" fullWidth>
             Войти в аккаунт
-        </Button>   
+        </Button>
+      </form>
+
+        <Snackbar open={error} autoHideDuration={6000} onClose={() => {setError(false)}}>
+            <Alert onClose={() => {setError(false)}} severity="error">
+                Неверный логин или пароль!
+            </Alert>
+        </Snackbar>
+
         <Button variant="outlined" onClick={() => {setCurrentPage(createUserPageType)}} color="primary" fullWidth>
             Зарегистрироваться
         </Button>   
@@ -95,17 +101,19 @@ function SignUpPage({setCurrentPage, switchNextPage}) {
   const [password, setPassword] = useState('');
   // const [secondPassword, setSecondPassword] = useState('')
   const [name, setName] = useState('')
+    const [error, setError] = useState(false)
 
   function handleSignUp() {
 
     axios.get(`${baseURL}/create-user?username=${name}&email=${email}&password=${password}`)
     .then(function (response) {
+        // TODO: в беке нужно будет сделать проверку на сушествовавший логин
       switchNextPage()
     })
     .catch(function (error) {
+        setError(true)
     })
   }
-
 
  return (
     <Container maxWidth="xs">
@@ -151,11 +159,15 @@ function SignUpPage({setCurrentPage, switchNextPage}) {
           Зарегистрироваться
         </Button>
       </form>
+        <Snackbar open={error} autoHideDuration={6000} onClose={() => {setError(false)}}>
+            <Alert onClose={() => {setError(false)}} severity="error">
+                Пользователь с таким логином уже существует!
+            </Alert>
+        </Snackbar>
 
-
-      <Button variant="outlined" onClick={() => {setCurrentPage(loginPageType)}} color="primary" fullWidth>
-          Войти в аккаунт
-      </Button>
+        <Button variant="outlined" onClick={() => {setCurrentPage(loginPageType)}} color="primary" fullWidth>
+              Войти в аккаунт
+        </Button>
     </Container>
  )
 }
