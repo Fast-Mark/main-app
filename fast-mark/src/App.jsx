@@ -11,10 +11,10 @@ import {baseURL} from "./const/endpoints.js";
 const App = () => {
   const [isAuthorizationRequired, setAuthorizationRequired] = useState(true)
   const [currentWindowType, setWindowType] = useState(StartWindowType)
-  const [docURL, setDocURL] = useState("")
+  const [imageURL, setImageURL] = useState("")
   const [isSuccesAuth, setSuccessAuth] = useState(false)
 
-    useEffect(() => {
+  useEffect(() => {
         // ВОзможно эта штука работает очень медленно, но зато точно проверяет валидность токена
         const fetchAuth = async () => {
                 const response = await axios.post(`${baseURL}/verify-user`, {},
@@ -27,7 +27,7 @@ const App = () => {
         }
         fetchAuth()
             .then(() => setAuthorizationRequired(false))
-    }, []);
+  }, []);
 
   const theme = createTheme({
     typography: {
@@ -53,7 +53,7 @@ const App = () => {
     return (
 
       <ThemeProvider theme={theme}>
-        <StartWindow setWindowType={setWindowType} setImageURL={setDocURL}></StartWindow>
+        <StartWindow setWindowType={setWindowType} setImageURL={setImageURL}></StartWindow>
            <Snackbar open={isSuccesAuth} autoHideDuration={6000} onClose={() => {setSuccessAuth(false)}}>
             <Alert  onClose={() => {setSuccessAuth(false)}} severity="success">
                 Вы успешно авторизовались!
@@ -65,7 +65,7 @@ const App = () => {
   } else if (currentWindowType === WorkWindowType) {
     return (
       <ThemeProvider theme={theme}>
-        <Workspace backgroundURL={docURL}></Workspace>
+        <Workspace backgroundURL={imageURL}></Workspace>
       </ThemeProvider>
     );
   } else if (currentWindowType === ResultWindowType) {
